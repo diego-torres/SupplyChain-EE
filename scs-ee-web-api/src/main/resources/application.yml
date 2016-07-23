@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/nowgroup_scs
+    username: web-api
+    password: Summer@2016
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
+endpoints:
+  cors:
+    allowed-headers: '*'
+    allowed-methods: '*'
+    allowed-origins: '*'
