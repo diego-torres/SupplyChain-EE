@@ -41,6 +41,32 @@ public abstract class BaseNamableModel extends BaseGenericModel {
 	private String				name;
 	
 	/**
+	 * 
+	 */
+	public BaseNamableModel() {
+	}
+	
+	/**
+	 * Create a BaseNamableModel using a name
+	 * 
+	 * @param name
+	 */
+	public BaseNamableModel(String name) {
+		setName(name);
+	}
+	
+	/**
+	 * Option to build a BaseNamable from id and name.
+	 * 
+	 * @param id
+	 * @param name
+	 */
+	public BaseNamableModel(Integer id, String name) {
+		setId(id);
+		setName(name);
+	}
+	
+	/**
 	 * @return the name
 	 */
 	@Column(name = "name", unique = true, length = 150, nullable = false)

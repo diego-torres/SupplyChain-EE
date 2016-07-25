@@ -63,6 +63,7 @@ public abstract class BaseReadOnlyService<T extends Model<U>, U extends Serializ
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
 	@Override
 	public T getById(U id) throws EntityNotFoundException, ParameterMisuseException {
+		if (id == null) return null;
 		return readOnlyRepository.getById(id);
 	}
 	

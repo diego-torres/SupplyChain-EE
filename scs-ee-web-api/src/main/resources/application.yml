@@ -12,7 +12,7 @@ spring:
     properties:
       hibernate:
         current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
-        hbm2ddl.auto: update
+        hbm2ddl.auto: create-drop
 endpoints:
   cors:
     allowed-headers: '*'

@@ -60,6 +60,7 @@ public abstract class HibernateReadOnlyRepository<T extends Model<U>, U extends 
 	 */
 	@Override
 	public T getById(U id) {
+		if(id == null) return null;
 		return getHibernateTemplate().get(type, id);
 	}
 	

@@ -66,9 +66,14 @@ public class PersistenceConfig {
 		return new HibernateJpaSessionFactoryBean();
 	}
 	
+	/**
+	 * Enable a manual dataSource bean to be Autowired to the hibernate
+	 * sessionFactory
+	 * 
+	 * @return
+	 */
 	@Bean
 	public DataSource dataSource() {
-		System.out.println("userDBDatasource :: init");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(dbDriver);
 		dataSource.setUrl(dbUrl);

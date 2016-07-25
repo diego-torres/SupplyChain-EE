@@ -39,4 +39,20 @@ import com.nowgroup.scsee.model.BaseNamableModel;
 @Table(name = "cat_companies")
 public class Company extends BaseNamableModel {
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Empty constructor
+	 */
+	public Company() {
+	}
+	
+	/**
+	 * Constructor for company by name
+	 * 
+	 * @param name
+	 *            The company name
+	 */
+	public Company(String name) {
+		super(name);
+	}
 }
