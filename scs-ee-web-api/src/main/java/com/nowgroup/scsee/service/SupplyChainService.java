@@ -21,26 +21,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.service;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.Serializable;
+import java.util.List;
+
+import com.nowgroup.scsee.model.EditValidation;
+import com.nowgroup.scsee.model.Model;
 
 /**
- * Spring boot application entry point class.
  * 
  * @author https://github.com/diego-torres
  * 		
+ * @param <T>
+ *            The Model Type
+ * @param <U>
+ *            The Model ID type.
  */
-@SpringBootApplication
-public class Application {
+public interface SupplyChainService<T extends Model<U>, U extends Serializable>
+									extends SupplyChainReadOnlyService<T, U> {
 	/**
-	 * Application main method (Application entry point).
 	 * 
-	 * @param args
+	 * @param entity
+	 * @return
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	List<EditValidation> add(T entity);
+	
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	List<EditValidation> update(T entity);
+	
+	/**
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	List<EditValidation> delete(U id);
+	
+	/**
+	 * Validate an entity before performing any edit operation.
+	 * 
+	 * @param entity
+	 *            The entity to be validated.
+	 * @return A list of validation errors. Null return is the default
+	 *         implementation.
+	 */
+	default List<EditValidation> validate(T entity) {
+		return null;
 	}
 }

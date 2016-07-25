@@ -21,26 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.repository.cat;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.nowgroup.scsee.model.cat.Company;
+import com.nowgroup.scsee.repository.HibernateRepository;
 
 /**
- * Spring boot application entry point class.
- * 
  * @author https://github.com/diego-torres
  * 		
  */
-@SpringBootApplication
-public class Application {
+@Repository
+public class HibernateCompanyRepository extends HibernateRepository<Company, Integer>implements CompanyRepository {
+	
 	/**
-	 * Application main method (Application entry point).
 	 * 
-	 * @param args
+	 * @param sessionFactory
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	@Autowired
+	public HibernateCompanyRepository(SessionFactory sessionFactory) {
+		super(Company.class, sessionFactory);
 	}
 }

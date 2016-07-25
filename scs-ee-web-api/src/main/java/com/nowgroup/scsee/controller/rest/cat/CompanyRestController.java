@@ -21,26 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.controller.rest.cat;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nowgroup.scsee.controller.rest.BaseRestController;
+import com.nowgroup.scsee.model.cat.Company;
+import com.nowgroup.scsee.service.cat.CompanyService;
 
 /**
- * Spring boot application entry point class.
- * 
  * @author https://github.com/diego-torres
- * 		
+ *
  */
-@SpringBootApplication
-public class Application {
+@RestController
+@RequestMapping(value = "rest/company")
+public class CompanyRestController extends BaseRestController<Company, Integer> {
+
 	/**
-	 * Application main method (Application entry point).
-	 * 
-	 * @param args
+	 * @param service
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	@Autowired
+	public CompanyRestController(CompanyService service) {
+		super(service);
 	}
+
 }

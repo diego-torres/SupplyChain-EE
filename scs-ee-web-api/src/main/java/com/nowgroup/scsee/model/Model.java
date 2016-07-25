@@ -21,26 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.model;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.Serializable;
 
 /**
- * Spring boot application entry point class.
+ * Provides a footprint of a common model.
  * 
  * @author https://github.com/diego-torres
  * 		
+ * @param <T>
+ *            The id type.
  */
-@SpringBootApplication
-public class Application {
+public interface Model<T extends Serializable> extends Serializable {
 	/**
-	 * Application main method (Application entry point).
+	 * Get the model Id depending on the specific implementation.
 	 * 
-	 * @param args
+	 * @return
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
-	}
+	T getId();
 }

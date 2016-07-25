@@ -21,26 +21,65 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.Serializable;
+
+import org.hibernate.SessionFactory;
+
+import com.nowgroup.scsee.model.Model;
 
 /**
- * Spring boot application entry point class.
- * 
  * @author https://github.com/diego-torres
  * 		
  */
-@SpringBootApplication
-public class Application {
+public abstract class HibernateRepository<T extends Model<U>, U extends Serializable>
+											extends HibernateReadOnlyRepository<T, U>implements Repository<T, U> {
+											
 	/**
-	 * Application main method (Application entry point).
-	 * 
-	 * @param args
+	 * @param type
+	 * @param sessionFactory
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	public HibernateRepository(Class<T> type, SessionFactory sessionFactory) {
+		super(type, sessionFactory);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nowgroup.scsee.repository.Repository#add(com.nowgroup.scsee.model.
+	 * Model)
+	 */
+	@Override
+	public void add(T entity) {
+		getHibernateTemplate().save(entity);
+		getHibernateTemplate().flush();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nowgroup.scsee.repository.Repository#update(com.nowgroup.scsee.model.
+	 * Model)
+	 */
+	@Override
+	public void update(T entity) {
+		getHibernateTemplate().update(entity);
+		getHibernateTemplate().flush();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nowgroup.scsee.repository.Repository#delete(com.nowgroup.scsee.model.
+	 * Model)
+	 */
+	@Override
+	public void delete(T entity) {
+		getHibernateTemplate().delete(entity);
+		getHibernateTemplate().flush();
 	}
 }

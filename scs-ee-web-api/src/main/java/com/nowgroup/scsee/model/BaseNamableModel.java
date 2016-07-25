@@ -21,26 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.model;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
+import org.springframework.beans.factory.annotation.Required;
 
 /**
- * Spring boot application entry point class.
+ * Basic catalogs will need only id + name model. They can extend this
+ * implementation to accomplish that.
  * 
  * @author https://github.com/diego-torres
  * 		
  */
-@SpringBootApplication
-public class Application {
+@MappedSuperclass
+public abstract class BaseNamableModel extends BaseGenericModel {
+	private static final long	serialVersionUID	= 1L;
+	private String				name;
+	
 	/**
-	 * Application main method (Application entry point).
-	 * 
-	 * @param args
+	 * @return the name
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	@Column(name = "name", unique = true, length = 150, nullable = false)
+	@Required
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

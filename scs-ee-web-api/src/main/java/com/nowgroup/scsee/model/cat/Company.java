@@ -21,26 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.model.cat;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.nowgroup.scsee.model.BaseNamableModel;
 
 /**
- * Spring boot application entry point class.
+ * The different companies that participate in the supply chain are modeled by
+ * these properties.
  * 
  * @author https://github.com/diego-torres
  * 		
  */
-@SpringBootApplication
-public class Application {
-	/**
-	 * Application main method (Application entry point).
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
-	}
+@Entity
+@Table(name = "cat_companies")
+public class Company extends BaseNamableModel {
+	private static final long serialVersionUID = 1L;
 }

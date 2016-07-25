@@ -21,26 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package com.nowgroup.scsee;
 
 /**
- * Spring boot application entry point class.
- * 
  * @author https://github.com/diego-torres
  * 		
  */
-@SpringBootApplication
-public class Application {
+public class EntityNotFoundException extends Exception {
+	private static final long serialVersionUID = 1L;
+	
 	/**
-	 * Application main method (Application entry point).
-	 * 
-	 * @param args
+	 * @param message
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	public EntityNotFoundException(String message) {
+		super(message);
 	}
+	
 }

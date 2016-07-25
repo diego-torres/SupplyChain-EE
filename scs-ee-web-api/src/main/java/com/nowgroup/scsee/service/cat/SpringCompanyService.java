@@ -21,26 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.service.cat;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nowgroup.scsee.model.cat.Company;
+import com.nowgroup.scsee.repository.cat.CompanyRepository;
+import com.nowgroup.scsee.service.BaseService;
 
 /**
- * Spring boot application entry point class.
  * 
  * @author https://github.com/diego-torres
- * 		
+ *
  */
-@SpringBootApplication
-public class Application {
+@Service
+public class SpringCompanyService extends BaseService<Company, Integer> implements CompanyService {
+
 	/**
-	 * Application main method (Application entry point).
-	 * 
-	 * @param args
+	 * @param repository
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	@Autowired
+	public SpringCompanyService(CompanyRepository repository) {
+		super(repository);
 	}
+
 }

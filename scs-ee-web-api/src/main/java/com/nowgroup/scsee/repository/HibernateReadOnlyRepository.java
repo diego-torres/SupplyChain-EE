@@ -21,26 +21,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.Serializable;
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+
+import com.nowgroup.scsee.model.Model;
 
 /**
- * Spring boot application entry point class.
  * 
  * @author https://github.com/diego-torres
- * 		
+ *		
+ * @param <T>
+ *            The Model Type
+ * @param <U>
+ *            The Model ID type.
  */
-@SpringBootApplication
-public class Application {
+public abstract class HibernateReadOnlyRepository<T extends Model<U>, U extends Serializable>
+													extends HibernateDaoSupport implements ReadOnlyRepository<T, U> {
+	private Class<T> type;
+	
 	/**
-	 * Application main method (Application entry point).
 	 * 
-	 * @param args
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
+	public HibernateReadOnlyRepository(Class<T> type, SessionFactory sessionFactory) {
+		this.type = type;
+		setSessionFactory(sessionFactory);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.nowgroup.scsee.repository.ReadOnlyRepository#getById(java.io.
+	 * Serializable)
+	 */
+	@Override
+	public T getById(U id) {
+		return getHibernateTemplate().get(type, id);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.nowgroup.scsee.repository.ReadOnlyRepository#getAll()
+	 */
+	@Override
+	public List<T> getAll() {
+		return getHibernateTemplate().loadAll(type);
 	}
 }

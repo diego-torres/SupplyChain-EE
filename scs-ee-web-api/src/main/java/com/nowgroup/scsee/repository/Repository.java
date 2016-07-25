@@ -21,26 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.springBoot;
+package com.nowgroup.scsee.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.Serializable;
+
+import com.nowgroup.scsee.model.Model;
 
 /**
- * Spring boot application entry point class.
  * 
  * @author https://github.com/diego-torres
- * 		
+ *		
+ * @param <T>
+ *            The Model Type
+ * @param <U>
+ *            The Model ID Type for filters.
  */
-@SpringBootApplication
-public class Application {
+public interface Repository<T extends Model<U>, U extends Serializable> extends ReadOnlyRepository<T, U> {
 	/**
-	 * Application main method (Application entry point).
+	 * Add the given item to repository.
 	 * 
-	 * @param args
+	 * @param item
 	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("Supply Chain Software - EE :: Web API is running");
-	}
+	void add(T entity);
+	
+	/**
+	 * Update the given item in repository.
+	 * 
+	 * @param item
+	 */
+	void update(T entity);
+	
+	/**
+	 * Remove the given item from repository,
+	 * 
+	 * @param item
+	 */
+	void delete(T entity);
 }
