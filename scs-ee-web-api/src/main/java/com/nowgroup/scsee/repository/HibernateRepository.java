@@ -53,8 +53,13 @@ public abstract class HibernateRepository<T extends Model<U>, U extends Serializ
 	 */
 	@Override
 	public void add(T entity) {
-		getHibernateTemplate().save(entity);
-		getHibernateTemplate().flush();
+		try {
+			getHibernateTemplate().save(entity);
+			getHibernateTemplate().flush();
+		} catch (Exception e) {
+			throw e;
+		}
+		
 	}
 	
 	/*
@@ -66,8 +71,12 @@ public abstract class HibernateRepository<T extends Model<U>, U extends Serializ
 	 */
 	@Override
 	public void update(T entity) {
-		getHibernateTemplate().update(entity);
-		getHibernateTemplate().flush();
+		try {
+			getHibernateTemplate().update(entity);
+			getHibernateTemplate().flush();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 	/*
@@ -79,7 +88,11 @@ public abstract class HibernateRepository<T extends Model<U>, U extends Serializ
 	 */
 	@Override
 	public void delete(T entity) {
-		getHibernateTemplate().delete(entity);
-		getHibernateTemplate().flush();
+		try {
+			getHibernateTemplate().delete(entity);
+			getHibernateTemplate().flush();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 }

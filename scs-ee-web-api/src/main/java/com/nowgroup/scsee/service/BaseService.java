@@ -115,7 +115,7 @@ public abstract class BaseService<T extends Model<U>, U extends Serializable> ex
 		List<EditValidation> validation = null;
 		try {
 			T entity = repository.getById(id);
-			repository.update(entity);
+			repository.delete(entity);
 		} catch (Exception e) {
 			validation = new ArrayList<EditValidation>();
 			validation.add(new EditValidation(e.getMessage(), EditValidationSeverity.CRITICAL));

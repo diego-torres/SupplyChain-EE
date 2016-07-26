@@ -26,6 +26,7 @@ package com.nowgroup.scsee.controller.rest;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -110,7 +111,7 @@ public abstract class BaseRestController<T extends Model<U>, U extends Serializa
 	 * @return
 	 */
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
-	public GlobalRestResponseDto<T> delete(@RequestParam(name = "id") U id) {
+	public GlobalRestResponseDto<T> delete(@PathVariable("id") U id) {
 		GlobalRestResponseDto<T> response = new GlobalRestResponseDto<>(
 				"Unable to delete entity from database with id: " + id);
 		try {
