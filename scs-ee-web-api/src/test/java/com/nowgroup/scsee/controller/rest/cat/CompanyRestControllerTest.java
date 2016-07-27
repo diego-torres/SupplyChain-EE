@@ -125,86 +125,79 @@ public class CompanyRestControllerTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testAddingRetrievingUpdateAndDeletingCompany() throws Exception {
+	public void testCrud() throws Exception {
 		String companyName = "NOWGROUP INC.";
 		Company testCompany = new Company(companyName);
 		String companyJson = json(testCompany);
-		MvcResult result = mockMvc.perform(post("/rest/company")
-				.contentType(contentType)
-				.content(companyJson))
+		MvcResult result = mockMvc.perform(post("/rest/company").contentType(contentType).content(companyJson))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$.result", Matchers.is("OK")))
 				.andExpect(jsonPath("$.data[0].id", Matchers.not(0)))
-				.andExpect(jsonPath("$.data[0].name", Matchers.is(companyName))).andReturn();
+				.andExpect(jsonPath("$.data[0].name", Matchers.is(companyName)))
+				.andReturn();
+				
+		// try to add a duplicate
+		Company testCompany2 = new Company(companyName);
+		String company2Json = json(testCompany2);
+		mockMvc.perform(post("/rest/company").contentType(contentType).content(company2Json))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(contentType))
+				.andExpect(jsonPath("$.result", Matchers.is("FAIL")))
+				.andExpect(jsonPath("$.errorDetails[0].validationMessage", Matchers.notNullValue()))
+				.andExpect(jsonPath("$.errorDetails[0].fieldName", Matchers.nullValue()))
+				.andExpect(jsonPath("$.errorDetails[0].severity", Matchers.is(EditValidation.EditValidationSeverity.LOW.name())));
+						
 		// TODO: Improve polymorphic instance of JSON Company
 		String jsonResult = result.getResponse().getContentAsString().substring(41);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		Company response = mapper.reader().forType(Company.class).readValue(jsonResult.substring(0, jsonResult.length()-2));
+		Company response = mapper.reader().forType(Company.class)
+				.readValue(jsonResult.substring(0, jsonResult.length() - 2));
 		int responseCompanyId = response.getId();
 		
 		String requestPath = "/rest/company/%d";
 		requestPath = String.format(requestPath, responseCompanyId);
 		
-		mockMvc.perform(get(requestPath)).andExpect(status().isOk())
-				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$.result", Matchers.is("OK")))
+		mockMvc.perform(get(requestPath)).andExpect(status().isOk()).andExpect(content().contentType(contentType))
+				.andExpect(jsonPath("$.result", Matchers.is("OK")))
 				.andExpect(jsonPath("$.data[0].id", Matchers.is(responseCompanyId)))
 				.andExpect(jsonPath("$.data[0].name", Matchers.is(companyName)));
-		
+				
 		String newCompanyName = "NOWGROUP NEW.";
 		testCompany.setId(responseCompanyId);
 		testCompany.setName(newCompanyName);
 		companyJson = json(testCompany);
 		
-		mockMvc.perform(put("/rest/company").contentType(contentType)
-				.content(companyJson)).andExpect(status().isOk())
+		mockMvc.perform(put("/rest/company").contentType(contentType).content(companyJson)).andExpect(status().isOk())
 				.andExpect(content().contentType(contentType))
 				.andExpect(jsonPath("$.result", Matchers.is("OK")))
 				.andExpect(jsonPath("$.data[0].id", Matchers.is(responseCompanyId)))
 				.andExpect(jsonPath("$.data[0].name", Matchers.is(newCompanyName)));
-		
-		mockMvc.perform(delete(requestPath))
+				
+		// TEST GET ALL, company updated tested
+		mockMvc.perform(get("/rest/company"))
 				.andExpect(status().isOk())
+				.andExpect(content().contentType(contentType))
+				.andExpect(jsonPath("$.result", Matchers.is("OK")))
+				.andExpect(jsonPath("$.data[0].id", Matchers.is(responseCompanyId)))
+				.andExpect(jsonPath("$.data[0].name", Matchers.is(newCompanyName)));
+				
+		mockMvc.perform(delete(requestPath)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.result", Matchers.is("OK")));
-		
+				
 		mockMvc.perform(get(requestPath)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.result", Matchers.is("FAIL")))
-				.andExpect(jsonPath("$.errorDetails[0].validationMessage", Matchers.is("Entity not found with id: " + responseCompanyId)))
+				.andExpect(jsonPath("$.errorDetails[0].validationMessage",
+						Matchers.is("Entity not found with id: " + responseCompanyId)))
 				.andExpect(jsonPath("$.errorDetails[0].fieldName", Matchers.nullValue()))
 				.andExpect(jsonPath("$.errorDetails[0].severity", Matchers.is(EditValidation.EditValidationSeverity.LOW.name())));
-		
+						
 		// Test delete an non existing company
-		mockMvc.perform(delete(requestPath))
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.result", Matchers.is("FAIL")));
+		mockMvc.perform(delete(requestPath)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.result", Matchers.is("FAIL")));
 	}
-	
-	/**
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testAddingDuplicatedCompanyFails() throws Exception {
-		String companyName = "FOXCON";
-		Company testCompany1 = new Company(companyName);
-		// Adding first company
-		String company1Json = json(testCompany1);
-		mockMvc.perform(post("/rest/company").contentType(contentType).content(company1Json)).andExpect(status().isOk())
-				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$.result", Matchers.is("OK")))
-				.andExpect(jsonPath("$.data[0].id", Matchers.not(0)))
-				.andExpect(jsonPath("$.data[0].name", Matchers.is(companyName)));
-				
-		Company testCompany2 = new Company(companyName);
-		String company2Json = json(testCompany2);
-		mockMvc.perform(post("/rest/company").contentType(contentType).content(company2Json)).andExpect(status().isOk())
-				.andExpect(content().contentType(contentType)).andExpect(jsonPath("$.result", Matchers.is("FAIL")))
-				.andExpect(jsonPath("$.errorDetails[0].validationMessage", Matchers.notNullValue()))
-				.andExpect(jsonPath("$.errorDetails[0].fieldName", Matchers.nullValue())).andExpect(jsonPath(
-						"$.errorDetails[0].severity", Matchers.is(EditValidation.EditValidationSeverity.LOW.name())));
-	}
-	
-	// TODO: Test retrieve all companies
+
 	/**
 	 * Helper for JSON conversion.
 	 * 
