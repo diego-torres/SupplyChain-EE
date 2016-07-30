@@ -23,9 +23,15 @@
  */
 package com.nowgroup.scsee.model.cat;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nowgroup.scsee.model.BaseNamableModel;
 
 /**
@@ -37,8 +43,10 @@ import com.nowgroup.scsee.model.BaseNamableModel;
  */
 @Entity
 @Table(name = "cat_companies")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company extends BaseNamableModel {
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
+	private Set<CompanyRole>	companyRole			= new HashSet<>();
 	
 	/**
 	 * Empty constructor
@@ -54,5 +62,22 @@ public class Company extends BaseNamableModel {
 	 */
 	public Company(String name) {
 		super(name);
+	}
+	
+	/**
+	 * @return the companyRole
+	 */
+	@OneToMany(	mappedBy = "key.company",
+				fetch = FetchType.EAGER, orphanRemoval = true)
+	public Set<CompanyRole> getCompanyRole() {
+		return companyRole;
+	}
+	
+	/**
+	 * @param companyRole
+	 *            the companyRole to set
+	 */
+	public void setCompanyRole(Set<CompanyRole> companyRole) {
+		this.companyRole = companyRole;
 	}
 }
