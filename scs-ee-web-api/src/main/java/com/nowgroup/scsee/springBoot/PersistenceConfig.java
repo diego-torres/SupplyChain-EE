@@ -35,6 +35,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 import com.nowgroup.scsee.model.cat.Company;
 import com.nowgroup.scsee.model.cat.Storage;
+import com.nowgroup.scsee.model.cat.UnLabel;
+import com.nowgroup.scsee.model.cat.Unit;
 import com.nowgroup.scsee.model.loc.Address;
 import com.nowgroup.scsee.repository.cat.HibernateCompanyRepository;
 
@@ -43,7 +45,7 @@ import com.nowgroup.scsee.repository.cat.HibernateCompanyRepository;
  * 		
  */
 @Configuration
-@EntityScan(basePackageClasses = { Company.class, Address.class, Storage.class })
+@EntityScan(basePackageClasses = { Company.class, Address.class, Storage.class, Unit.class, UnLabel.class })
 @ComponentScan(basePackageClasses = { HibernateCompanyRepository.class })
 public class PersistenceConfig {
 	@Value("${spring.datasource.driver-class-name}")
