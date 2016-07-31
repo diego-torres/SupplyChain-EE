@@ -26,13 +26,18 @@ package com.nowgroup.scsee.model.cat;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nowgroup.scsee.model.BaseNamableModel;
+import com.nowgroup.scsee.model.loc.Address;
 
 /**
  * The different companies that participate in the supply chain are modeled by
@@ -43,10 +48,11 @@ import com.nowgroup.scsee.model.BaseNamableModel;
  */
 @Entity
 @Table(name = "cat_companies")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Company extends BaseNamableModel {
 	private static final long	serialVersionUID	= 1L;
 	private Set<CompanyRole>	companyRole			= new HashSet<>();
+	private Set<Address>		addresses			= new HashSet<>();
 	
 	/**
 	 * Empty constructor
@@ -67,8 +73,7 @@ public class Company extends BaseNamableModel {
 	/**
 	 * @return the companyRole
 	 */
-	@OneToMany(	mappedBy = "key.company",
-				fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "key.company", fetch = FetchType.EAGER, orphanRemoval = true)
 	public Set<CompanyRole> getCompanyRole() {
 		return companyRole;
 	}
@@ -79,5 +84,22 @@ public class Company extends BaseNamableModel {
 	 */
 	public void setCompanyRole(Set<CompanyRole> companyRole) {
 		this.companyRole = companyRole;
+	}
+	
+	/**
+	 * @return the addresses
+	 */
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST })
+	@JoinTable(name = "loc_company_address")
+	public Set<Address> getAddresses() {
+		return addresses;
+	}
+	
+	/**
+	 * @param addresses
+	 *            the addresses to set
+	 */
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
 	}
 }
