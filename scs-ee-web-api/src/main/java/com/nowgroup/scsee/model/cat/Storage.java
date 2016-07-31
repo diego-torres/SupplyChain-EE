@@ -23,82 +23,53 @@
  */
 package com.nowgroup.scsee.model.cat;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nowgroup.scsee.ParameterMisuseException;
 import com.nowgroup.scsee.model.BaseNamableModel;
-import com.nowgroup.scsee.model.loc.Address;
+import com.nowgroup.scsee.model.cat.CompanyRoleKey.CompanyRoleType;
 
 /**
- * The different companies that participate in the supply chain are modeled by
- * these properties.
- * 
  * @author https://github.com/diego-torres
  * 		
  */
 @Entity
-@Table(name = "cat_companies")
+@Table(name = "cat_storage")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Company extends BaseNamableModel {
+public class Storage extends BaseNamableModel {
 	private static final long	serialVersionUID	= 1L;
-	private Set<CompanyRole>	companyRole			= new HashSet<>();
-	private Set<Address>		addresses			= new HashSet<>();
+	private Company				company;
 	
 	/**
-	 * Empty constructor
-	 */
-	public Company() {
-	}
-	
-	/**
-	 * Constructor for company by name
 	 * 
-	 * @param name
-	 *            The company name
 	 */
-	public Company(String name) {
-		super(name);
+	public Storage() {
 	}
 	
 	/**
-	 * @return the companyRole
+	 * @return the company
 	 */
-	@OneToMany(mappedBy = "key.company", fetch = FetchType.EAGER, orphanRemoval = true)
-	public Set<CompanyRole> getCompanyRole() {
-		return companyRole;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "company_id")
+	public Company getCompany() {
+		return company;
 	}
 	
 	/**
-	 * @param companyRole
-	 *            the companyRole to set
+	 * @param company
+	 *            the company to set
 	 */
-	public void setCompanyRole(Set<CompanyRole> companyRole) {
-		this.companyRole = companyRole;
-	}
-	
-	/**
-	 * @return the addresses
-	 */
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinTable(name = "loc_company_address")
-	public Set<Address> getAddresses() {
-		return addresses;
-	}
-	
-	/**
-	 * @param addresses
-	 *            the addresses to set
-	 */
-	public void setAddresses(Set<Address> addresses) {
-		this.addresses = addresses;
+	public void setCompany(Company company) throws ParameterMisuseException {
+		if (company != null) {
+			boolean isReceiver = company.getCompanyRole().stream().anyMatch(
+					role -> role.getKey() != null && role.getKey().getRoleName() == CompanyRoleType.RECEIVER.name());
+			if (!isReceiver) throw new ParameterMisuseException("Company must be receiver to assign storages in it.");
+		}
+		this.company = company;
 	}
 }
