@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nowgroup.scsee.model.cat.Storage;
-import com.nowgroup.scsee.repository.cat.StorageRepository;
+import com.nowgroup.scsee.repository.cat.IStorageRepository;
 import com.nowgroup.scsee.service.BaseService;
 
 /**
@@ -35,13 +35,13 @@ import com.nowgroup.scsee.service.BaseService;
  *		
  */
 @Service
-public class SpringStorageService extends BaseService<Storage, Integer>implements StorageService {
+public class SpringStorageService extends BaseService<Storage, Integer>implements IStorageService {
 	
 	/**
 	 * @param repository
 	 */
 	@Autowired
-	public SpringStorageService(StorageRepository repository) {
+	public SpringStorageService(IStorageRepository repository) {
 		super(repository);
 	}
 	

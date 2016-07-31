@@ -23,13 +23,13 @@
  */
 package com.nowgroup.scsee.repository.cat;
 
-import com.nowgroup.scsee.model.cat.Company;
+import com.nowgroup.scsee.model.cat.Unit;
 import com.nowgroup.scsee.repository.Repository;
 
 /**
  * @author https://github.com/diego-torres
  *
  */
-public interface CompanyRepository extends Repository<Company, Integer> {
+public interface IUnitRepository extends Repository<Unit, Integer> {
 
 }

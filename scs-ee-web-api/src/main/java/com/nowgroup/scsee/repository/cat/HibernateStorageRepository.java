@@ -32,13 +32,12 @@ import com.nowgroup.scsee.repository.HibernateRepository;
 
 /**
  * @author https://github.com/diego-torres
- *		
+ * 		
  */
 @Repository
-public class HibernateStorageRepository extends HibernateRepository<Storage, Integer>implements StorageRepository {
+public class HibernateStorageRepository extends HibernateRepository<Storage, Integer>implements IStorageRepository {
 	
 	/**
-	 * @param type
 	 * @param sessionFactory
 	 */
 	@Autowired

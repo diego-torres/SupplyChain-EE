@@ -42,6 +42,7 @@ public class Address extends BaseGenericModel {
 	private String				city;
 	private String				addressState;
 	private String				zip;
+	private String				country;
 	private String				landLine;
 	private String				contactName;
 	private AddressType			addressType;
@@ -185,6 +186,21 @@ public class Address extends BaseGenericModel {
 		}
 	}
 	
+	/**
+	 * @return the country
+	 */
+	@Column(length = 20)
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	public static enum AddressType {
 		UNKNOWN, LEGAL, MAILING
 	}

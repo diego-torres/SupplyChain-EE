@@ -21,15 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.service.cat;
+package com.nowgroup.scsee.repository.cat;
 
-import com.nowgroup.scsee.model.cat.Storage;
-import com.nowgroup.scsee.service.SupplyChainService;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.nowgroup.scsee.model.cat.Unit;
+import com.nowgroup.scsee.repository.HibernateRepository;
 
 /**
  * @author https://github.com/diego-torres
- *
+ * 		
  */
-public interface StorageService extends SupplyChainService<Storage, Integer> {
-
+public class HibernateUnitRepository extends HibernateRepository<Unit, Integer>implements IUnitRepository {
+	
+	/**
+	 * @param sessionFactory
+	 */
+	@Autowired
+	public HibernateUnitRepository(SessionFactory sessionFactory) {
+		super(Unit.class, sessionFactory);
+	}
 }

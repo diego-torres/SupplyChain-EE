@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nowgroup.scsee.controller.rest.BaseRestController;
 import com.nowgroup.scsee.model.cat.Company;
-import com.nowgroup.scsee.service.cat.CompanyService;
+import com.nowgroup.scsee.service.cat.ICompanyService;
 
 /**
  * @author https://github.com/diego-torres
@@ -43,7 +43,7 @@ public class CompanyRestController extends BaseRestController<Company, Integer> 
 	 * @param service
 	 */
 	@Autowired
-	public CompanyRestController(CompanyService service) {
+	public CompanyRestController(ICompanyService service) {
 		super(service);
 	}
 

@@ -23,53 +23,75 @@
  */
 package com.nowgroup.scsee.model.cat;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.nowgroup.scsee.ParameterMisuseException;
 import com.nowgroup.scsee.model.BaseNamableModel;
-import com.nowgroup.scsee.model.cat.Company.CompanyRoleType;
 
 /**
  * @author https://github.com/diego-torres
  * 		
  */
 @Entity
-@Table(name = "cat_storage")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Storage extends BaseNamableModel {
+@Table(name = "cat_units")
+public class Unit extends BaseNamableModel {
 	private static final long	serialVersionUID	= 1L;
-	private Company				company;
+	private UnitType			unitType;
 	
 	/**
 	 * 
 	 */
-	public Storage() {
+	public Unit() {
 	}
 	
 	/**
-	 * @return the company
+	 * @param name
 	 */
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "company_id")
-	public Company getCompany() {
-		return company;
+	public Unit(String name) {
+		super(name);
+		this.unitType = UnitType.UNKNOWN;
 	}
 	
 	/**
-	 * @param company
-	 *            the company to set
+	 * @param id
+	 * @param name
 	 */
-	public void setCompany(Company company) throws ParameterMisuseException {
-		if (company != null) {
-			boolean isReceiver = company.getCompanyRole().stream().anyMatch(
-					role -> role.getKey() != null && role.getKey().getRoleName() == CompanyRoleType.RECEIVER.name());
-			if (!isReceiver) throw new ParameterMisuseException("Company must be receiver to assign storages in it.");
+	public Unit(Integer id, String name) {
+		super(id, name);
+		this.unitType = UnitType.UNKNOWN;
+	}
+	
+	/**
+	 * @return the unitType
+	 */
+	@Column(length = 15)
+	public String getUnitType() {
+		return unitType == null ? UnitType.UNKNOWN.name() : unitType.name();
+	}
+	
+	/**
+	 * @param unitType
+	 *            the unitType to set
+	 */
+	public void setUnitType(String unitType) {
+		if (unitType == null) {
+			this.unitType = UnitType.UNKNOWN;
+			return;
 		}
-		this.company = company;
+		try {
+			this.unitType = UnitType.valueOf(unitType.toUpperCase());
+		} catch (Exception e) {
+			this.unitType = UnitType.UNKNOWN;
+		}
+	}
+	
+	/**
+	 * 
+	 * @author https://github.com/diego-torres
+	 * 		
+	 */
+	public static enum UnitType {
+		UNKNOWN, WEIGHT, LENGTH, VOLUME, PACKING
 	}
 }

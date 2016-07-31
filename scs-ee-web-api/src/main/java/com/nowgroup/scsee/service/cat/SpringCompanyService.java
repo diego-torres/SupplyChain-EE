@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nowgroup.scsee.model.cat.Company;
-import com.nowgroup.scsee.repository.cat.CompanyRepository;
+import com.nowgroup.scsee.repository.cat.ICompanyRepository;
 import com.nowgroup.scsee.service.BaseService;
 
 /**
@@ -36,13 +36,13 @@ import com.nowgroup.scsee.service.BaseService;
  *
  */
 @Service
-public class SpringCompanyService extends BaseService<Company, Integer> implements CompanyService {
+public class SpringCompanyService extends BaseService<Company, Integer> implements ICompanyService {
 
 	/**
 	 * @param repository
 	 */
 	@Autowired
-	public SpringCompanyService(CompanyRepository repository) {
+	public SpringCompanyService(ICompanyRepository repository) {
 		super(repository);
 	}
 
