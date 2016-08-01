@@ -228,5 +228,4 @@ public class Part extends BaseGenericModel {
 	public void setOtherDimensions(String otherDimensions) {
 		this.otherDimensions = otherDimensions;
 	}
-	
 }
