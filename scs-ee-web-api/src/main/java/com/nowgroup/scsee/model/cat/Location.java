@@ -23,9 +23,11 @@
  */
 package com.nowgroup.scsee.model.cat;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.nowgroup.scsee.model.BaseNamableModel;
 
@@ -35,6 +37,8 @@ import com.nowgroup.scsee.model.BaseNamableModel;
  * @author https://github.com/diego-torres
  * 		
  */
+@Entity
+@Table(name = "cat_location")
 public class Location extends BaseNamableModel {
 	private static final long	serialVersionUID	= 1L;
 	private Storage				storage;

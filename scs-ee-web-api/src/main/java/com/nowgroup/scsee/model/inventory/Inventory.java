@@ -21,23 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.model.cat;
+package com.nowgroup.scsee.model.inventory;
 
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 
 import com.nowgroup.scsee.model.BaseGenericModel;
+import com.nowgroup.scsee.model.cat.Location;
+import com.nowgroup.scsee.model.cat.Part;
+import com.nowgroup.scsee.model.cat.Unit;
 
 /**
  * @author https://github.com/diego-torres
  * 		
  */
+@Entity
+@Table(name = "inventory")
 public class Inventory extends BaseGenericModel {
 	private static final long serialVersionUID = 1L;
 	
