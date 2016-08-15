@@ -30,23 +30,23 @@ import com.nowgroup.scsee.model.BaseNamableModel;
 
 /**
  * @author https://github.com/diego-torres
- *		
+ * 		
  */
 @Entity
-@Table(name = "cat_transportation_modes")
-public class TransportationMode extends BaseNamableModel {
+@Table(name = "cat_traffic_types")
+public class TrafficType extends BaseNamableModel {
 	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * 
 	 */
-	public TransportationMode() {
+	public TrafficType() {
 	}
 	
 	/**
 	 * @param name
 	 */
-	public TransportationMode(String name) {
+	public TrafficType(String name) {
 		super(name);
 	}
 	
@@ -54,7 +54,7 @@ public class TransportationMode extends BaseNamableModel {
 	 * @param id
 	 * @param name
 	 */
-	public TransportationMode(Integer id, String name) {
+	public TrafficType(Integer id, String name) {
 		super(id, name);
 	}
 }
