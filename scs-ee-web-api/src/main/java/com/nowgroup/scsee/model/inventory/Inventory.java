@@ -66,11 +66,10 @@ public class Inventory extends BaseGenericModel {
 	 * @param location
 	 * @param quantity
 	 */
-	public Inventory(Part part, Unit unit, Location location, BigDecimal quantity) {
+	public Inventory(Part part, Unit unit, Location location) {
 		this.part = part;
 		this.unit = unit;
 		this.location = location;
-		this.quantity = quantity;
 	}
 	
 	/**

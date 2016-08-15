@@ -34,9 +34,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.ValidationException;
 
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.metamodel.ValidationException;
 
 import com.nowgroup.scsee.model.BaseGenericModel;
 
