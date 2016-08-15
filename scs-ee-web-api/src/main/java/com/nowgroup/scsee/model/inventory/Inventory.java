@@ -31,6 +31,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.ValidationException;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -137,6 +138,8 @@ public class Inventory extends BaseGenericModel {
 	 *            the quantity to set
 	 */
 	public void setQuantity(BigDecimal quantity) {
+		if (quantity.compareTo(BigDecimal.ZERO) < 0)
+			throw new ValidationException("Insuficient inventory for operation [" + quantity.doubleValue() + "]");
 		this.quantity = quantity;
 	}
 }

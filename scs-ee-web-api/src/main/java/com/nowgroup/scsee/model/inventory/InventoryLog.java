@@ -36,10 +36,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.metamodel.ValidationException;
 
 import com.nowgroup.scsee.model.BaseGenericModel;
 
 /**
+ * Handles adding and removing inventory by a movement log.
+ * 
  * @author https://github.com/diego-torres
  * 		
  */
@@ -102,6 +105,10 @@ public class InventoryLog extends BaseGenericModel {
 	 *            the quantity to set
 	 */
 	public void setQuantity(BigDecimal quantity) {
+		BigDecimal modifiedInventory = inventory.getQuantity().add(quantity);
+		if (modifiedInventory.compareTo(BigDecimal.ZERO) < 0) { throw new ValidationException(
+				"Not enough inventory for operation [" + modifiedInventory.doubleValue() + "]"); }
+		inventory.setQuantity(modifiedInventory);
 		this.quantity = quantity;
 	}
 	
