@@ -25,23 +25,23 @@ package com.nowgroup.scsee.repository.cat;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import com.nowgroup.scsee.model.cat.Company;
+import com.nowgroup.scsee.model.cat.Location;
 import com.nowgroup.scsee.repository.HibernateRepository;
 
 /**
  * @author https://github.com/diego-torres
  * 		
  */
-@Repository
-public class HibernateCompanyRepository extends HibernateRepository<Company, Integer>implements ICompanyRepository {
+public class HibernateLocationRepository extends HibernateRepository<Location, Integer>implements ILocationRepository {
+	
 	/**
+	 * 
 	 * 
 	 * @param sessionFactory
 	 */
 	@Autowired
-	public HibernateCompanyRepository(SessionFactory sessionFactory) {
-		super(Company.class, sessionFactory);
+	public HibernateLocationRepository(SessionFactory sessionFactory) {
+		super(Location.class, sessionFactory);
 	}
 }
