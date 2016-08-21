@@ -34,12 +34,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 
 import com.nowgroup.scsee.model.BaseGenericModel;
+import com.nowgroup.scsee.model.BaseNamableModel;
 import com.nowgroup.scsee.model.cat.Company;
+import com.nowgroup.scsee.model.cat.Packing;
 import com.nowgroup.scsee.model.cat.TransportationMode;
+import com.nowgroup.scsee.model.cat.UnLabel;
 
 /**
  * @author https://github.com/diego-torres
@@ -280,6 +284,19 @@ public class Transit extends BaseGenericModel {
 	}
 	
 	/**
+	 * Calculate the transit volume
+	 * 
+	 * @return
+	 */
+	@Transient
+	public BigDecimal getVolume() {
+		if (height == null || BigDecimal.ZERO.compareTo(height) == 0 || length == null
+				|| BigDecimal.ZERO.compareTo(length) == 0 || width == null || BigDecimal.ZERO.compareTo(width) == 0)
+			return BigDecimal.ZERO;
+		return height.multiply(length).multiply(width);
+	}
+	
+	/**
 	 * @return the estimatedDeliveryWhen
 	 */
 	@Column
@@ -461,5 +478,264 @@ public class Transit extends BaseGenericModel {
 	 */
 	public void setObservations(String observations) {
 		this.observations = observations;
+	}
+	
+	/**
+	 * Transit items.
+	 * 
+	 * @author https://github.com/diego-torres
+	 * 		
+	 */
+	@Entity
+	@Table(name = "transit_items")
+	public static class TransitItem extends BaseNamableModel {
+		private static final long serialVersionUID = 1L;
+		
+		private Transit		transit;
+		private Integer		quantity	= 0;
+		private Packing		packingUnit;
+		private BigDecimal	weight		= BigDecimal.ZERO;
+		private BigDecimal	length		= BigDecimal.ZERO;
+		private BigDecimal	height		= BigDecimal.ZERO;
+		private BigDecimal	width		= BigDecimal.ZERO;
+		private String		description;
+		private UnLabel		label;
+		private String		marks;
+		private String		models;
+		private String		serials;
+		
+		/**
+		 * 
+		 */
+		public TransitItem() {
+			super();
+		}
+		
+		/**
+		 * @param id
+		 * @param name
+		 */
+		public TransitItem(Integer id, String name) {
+			super(id, name);
+		}
+		
+		/**
+		 * @param name
+		 */
+		public TransitItem(String name) {
+			super(name);
+		}
+		
+		/**
+		 * @return the transit
+		 */
+		@ManyToOne(fetch = FetchType.EAGER, optional = false)
+		@JoinColumn(name = "transit_id")
+		public Transit getTransit() {
+			return transit;
+		}
+		
+		/**
+		 * @param transit
+		 *            the transit to set
+		 */
+		public void setTransit(Transit transit) {
+			this.transit = transit;
+		}
+		
+		/**
+		 * @return the quantity
+		 */
+		@Column
+		public Integer getQuantity() {
+			return quantity;
+		}
+		
+		/**
+		 * @param quantity
+		 *            the quantity to set
+		 */
+		public void setQuantity(Integer quantity) {
+			this.quantity = quantity;
+		}
+		
+		/**
+		 * @return the packingUnit
+		 */
+		@ManyToOne(fetch = FetchType.EAGER, optional = false)
+		@JoinColumn(name = "packing_unit_id")
+		public Packing getPackingUnit() {
+			return packingUnit;
+		}
+		
+		/**
+		 * @param packingUnit
+		 *            the packingUnit to set
+		 */
+		public void setPackingUnit(Packing packingUnit) {
+			this.packingUnit = packingUnit;
+		}
+		
+		/**
+		 * @return the weight
+		 */
+		@Column(nullable = false, precision = 18, scale = 6)
+		@ColumnDefault(value = "0")
+		public BigDecimal getWeight() {
+			return weight;
+		}
+		
+		/**
+		 * @param weight
+		 *            the weight to set
+		 */
+		public void setWeight(BigDecimal weight) {
+			this.weight = weight;
+		}
+		
+		/**
+		 * @return the length
+		 */
+		@Column(nullable = false, precision = 18, scale = 6)
+		@ColumnDefault(value = "0")
+		public BigDecimal getLength() {
+			return length;
+		}
+		
+		/**
+		 * @param length
+		 *            the length to set
+		 */
+		public void setLength(BigDecimal length) {
+			this.length = length;
+		}
+		
+		/**
+		 * @return the height
+		 */
+		@Column(nullable = false, precision = 18, scale = 6)
+		@ColumnDefault(value = "0")
+		public BigDecimal getHeight() {
+			return height;
+		}
+		
+		/**
+		 * @param height
+		 *            the height to set
+		 */
+		public void setHeight(BigDecimal height) {
+			this.height = height;
+		}
+		
+		/**
+		 * @return the width
+		 */
+		@Column(nullable = false, precision = 18, scale = 6)
+		@ColumnDefault(value = "0")
+		public BigDecimal getWidth() {
+			return width;
+		}
+		
+		/**
+		 * @param width
+		 *            the width to set
+		 */
+		public void setWidth(BigDecimal width) {
+			this.width = width;
+		}
+		
+		/**
+		 * Calculate the transit item volume
+		 * 
+		 * @return
+		 */
+		@Transient
+		public BigDecimal getVolume() {
+			if (height == null || BigDecimal.ZERO.compareTo(height) == 0 || length == null
+					|| BigDecimal.ZERO.compareTo(length) == 0 || width == null || BigDecimal.ZERO.compareTo(width) == 0)
+				return BigDecimal.ZERO;
+			return height.multiply(length).multiply(width);
+		}
+		
+		/**
+		 * @return the description
+		 */
+		@Column(length = 250)
+		public String getDescription() {
+			return description;
+		}
+		
+		/**
+		 * @param description
+		 *            the description to set
+		 */
+		public void setDescription(String description) {
+			this.description = description;
+		}
+		
+		/**
+		 * @return the label
+		 */
+		@ManyToOne(fetch = FetchType.EAGER, optional = false)
+		@JoinColumn(name = "label_id")
+		public UnLabel getLabel() {
+			return label;
+		}
+		
+		/**
+		 * @param label
+		 *            the label to set
+		 */
+		public void setLabel(UnLabel label) {
+			this.label = label;
+		}
+		
+		/**
+		 * @return the marks
+		 */
+		@Column(length = 100)
+		public String getMarks() {
+			return marks;
+		}
+		
+		/**
+		 * @param marks
+		 *            the marks to set
+		 */
+		public void setMarks(String marks) {
+			this.marks = marks;
+		}
+		
+		/**
+		 * @return the models
+		 */
+		@Column(length = 100)
+		public String getModels() {
+			return models;
+		}
+		
+		/**
+		 * @param models
+		 *            the models to set
+		 */
+		public void setModels(String models) {
+			this.models = models;
+		}
+		
+		/**
+		 * @return the serials
+		 */
+		@Column(length = 100)
+		public String getSerials() {
+			return serials;
+		}
+		
+		/**
+		 * @param serials
+		 *            the serials to set
+		 */
+		public void setSerials(String serials) {
+			this.serials = serials;
+		}
 	}
 }

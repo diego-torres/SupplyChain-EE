@@ -48,7 +48,6 @@ public class Packing extends BaseNamableModel {
 	 */
 	public Packing(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -57,7 +56,6 @@ public class Packing extends BaseNamableModel {
 	 */
 	public Packing(Integer id, String name) {
 		super(id, name);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

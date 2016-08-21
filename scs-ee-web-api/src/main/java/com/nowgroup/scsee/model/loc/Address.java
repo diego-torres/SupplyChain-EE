@@ -51,7 +51,6 @@ public class Address extends BaseGenericModel {
 	 * 
 	 */
 	public Address() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
