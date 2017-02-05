@@ -39,6 +39,7 @@ import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.cat.company.HibernateCompanyRepository;
 import com.nowgroup.scsee.cat.currency.Currency;
 import com.nowgroup.scsee.cat.customsRegime.CustomsRegime;
+import com.nowgroup.scsee.cat.incoterm.Incoterm;
 import com.nowgroup.scsee.cat.storage.Storage;
 import com.nowgroup.scsee.model.cat.UnLabel;
 import com.nowgroup.scsee.model.cat.Unit;
@@ -52,8 +53,8 @@ import com.nowgroup.scsee.model.transit.Transit;
  * 		
  */
 @Configuration
-@EntityScan(basePackageClasses = { AssessmentMethod.class, BundleType.class, Currency.class, CustomsRegime.class,
-		Company.class, Address.class, Storage.class, Unit.class, UnLabel.class, Inventory.class, Transit.class,
+@EntityScan(basePackageClasses = { AssessmentMethod.class, BundleType.class, Company.class, Currency.class,
+		CustomsRegime.class, Incoterm.class, Address.class, Storage.class, Unit.class, UnLabel.class, Inventory.class, Transit.class,
 		PackingList.class })
 @ComponentScan(basePackageClasses = { HibernateCompanyRepository.class })
 public class PersistenceConfig {
