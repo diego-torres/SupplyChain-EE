@@ -42,7 +42,7 @@ import com.nowgroup.scsee.model.BaseGenericModel;
  * 		
  */
 @Entity
-@Table(name = "cat_parts", uniqueConstraints = {
+@Table(name = "cat_part", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "part_number", "company_id" }, name = "ux_company_part_number") })
 public class Part extends BaseGenericModel {
 	private static final long	serialVersionUID	= 1L;
@@ -53,7 +53,7 @@ public class Part extends BaseGenericModel {
 	private BigDecimal			height				= BigDecimal.ZERO;
 	private BigDecimal			width				= BigDecimal.ZERO;
 	private BigDecimal			length				= BigDecimal.ZERO;
-	private BigDecimal			volume				= BigDecimal.ZERO;
+	private Boolean				blocked;
 	private String				handlingInstructions;
 	private String				otherDimensions;
 	
@@ -181,23 +181,6 @@ public class Part extends BaseGenericModel {
 	}
 	
 	/**
-	 * @return the volume
-	 */
-	@Column(nullable = false, precision = 18, scale = 6)
-	@ColumnDefault(value = "0")
-	public BigDecimal getVolume() {
-		return volume;
-	}
-	
-	/**
-	 * @param volume
-	 *            the volume to set
-	 */
-	public void setVolume(BigDecimal volume) {
-		this.volume = volume;
-	}
-	
-	/**
 	 * @return the handlingInstructions
 	 */
 	@Column(length = 250)
@@ -227,5 +210,20 @@ public class Part extends BaseGenericModel {
 	 */
 	public void setOtherDimensions(String otherDimensions) {
 		this.otherDimensions = otherDimensions;
+	}
+	
+	/**
+	 * @return the blocked
+	 */
+	public Boolean getBlocked() {
+		return blocked;
+	}
+	
+	/**
+	 * @param blocked
+	 *            the blocked to set
+	 */
+	public void setBlocked(Boolean blocked) {
+		this.blocked = blocked;
 	}
 }

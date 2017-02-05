@@ -25,6 +25,9 @@ package com.nowgroup.scsee.model.loc;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.nowgroup.scsee.model.BaseGenericModel;
@@ -42,7 +45,7 @@ public class Address extends BaseGenericModel {
 	private String				city;
 	private String				addressState;
 	private String				zip;
-	private String				country;
+	private Country				country;
 	private String				landLine;
 	private String				contactName;
 	private AddressType			addressType;
@@ -188,18 +191,20 @@ public class Address extends BaseGenericModel {
 	/**
 	 * @return the country
 	 */
-	@Column(length = 20)
-	public String getCountry() {
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "country_id")
+	public Country getCountry() {
 		return country;
 	}
-
+	
 	/**
-	 * @param country the country to set
+	 * @param country
+	 *            the country to set
 	 */
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
-
+	
 	public static enum AddressType {
 		UNKNOWN, LEGAL, MAILING
 	}
