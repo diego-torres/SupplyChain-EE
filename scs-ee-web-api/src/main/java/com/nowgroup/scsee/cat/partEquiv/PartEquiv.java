@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.model.cat;
+package com.nowgroup.scsee.cat.partEquiv;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -38,8 +38,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ColumnDefault;
 
 import com.nowgroup.scsee.cat.part.Part;
+import com.nowgroup.scsee.cat.partEquiv.PartEquiv.PartEquivKey;
 import com.nowgroup.scsee.model.Model;
-import com.nowgroup.scsee.model.cat.PartEquiv.PartEquivKey;
 
 /**
  * @author https://github.com/diego-torres
