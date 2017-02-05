@@ -37,8 +37,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 import com.nowgroup.scsee.cat.location.Location;
 import com.nowgroup.scsee.cat.part.Part;
+import com.nowgroup.scsee.cat.unit.Unit;
 import com.nowgroup.scsee.model.BaseGenericModel;
-import com.nowgroup.scsee.model.cat.Unit;
 
 /**
  * @author https://github.com/diego-torres

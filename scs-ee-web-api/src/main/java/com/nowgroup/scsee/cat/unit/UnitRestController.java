@@ -21,15 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.repository.cat;
+package com.nowgroup.scsee.cat.unit;
 
-import com.nowgroup.scsee.model.cat.Unit;
-import com.nowgroup.scsee.repository.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.nowgroup.scsee.controller.rest.BaseRestController;
 
 /**
  * @author https://github.com/diego-torres
  *
  */
-public interface IUnitRepository extends Repository<Unit, Integer> {
+public class UnitRestController extends BaseRestController<Unit, Integer> {
+
+	/**
+	 * @param service
+	 */
+	@Autowired
+	public UnitRestController(IUnitService service) {
+		super(service);
+	}
 
 }

@@ -21,77 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.model.cat;
+package com.nowgroup.scsee.cat.unit;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.nowgroup.scsee.model.BaseNamableModel;
+import com.nowgroup.scsee.repository.HibernateRepository;
 
 /**
  * @author https://github.com/diego-torres
  * 		
  */
-@Entity
-@Table(name = "cat_units")
-public class Unit extends BaseNamableModel {
-	private static final long	serialVersionUID	= 1L;
-	private UnitType			unitType;
+public class HibernateUnitRepository extends HibernateRepository<Unit, Integer>implements IUnitRepository {
 	
 	/**
-	 * 
+	 * @param sessionFactory
 	 */
-	public Unit() {
-	}
-	
-	/**
-	 * @param name
-	 */
-	public Unit(String name) {
-		super(name);
-		this.unitType = UnitType.UNKNOWN;
-	}
-	
-	/**
-	 * @param id
-	 * @param name
-	 */
-	public Unit(Integer id, String name) {
-		super(id, name);
-		this.unitType = UnitType.UNKNOWN;
-	}
-	
-	/**
-	 * @return the unitType
-	 */
-	@Column(length = 15)
-	public String getUnitType() {
-		return unitType == null ? UnitType.UNKNOWN.name() : unitType.name();
-	}
-	
-	/**
-	 * @param unitType
-	 *            the unitType to set
-	 */
-	public void setUnitType(String unitType) {
-		if (unitType == null) {
-			this.unitType = UnitType.UNKNOWN;
-			return;
-		}
-		try {
-			this.unitType = UnitType.valueOf(unitType.toUpperCase());
-		} catch (Exception e) {
-			this.unitType = UnitType.UNKNOWN;
-		}
-	}
-	
-	/**
-	 * 
-	 * @author https://github.com/diego-torres
-	 * 		
-	 */
-	public static enum UnitType {
-		UNKNOWN, WEIGHT, LENGTH, VOLUME, PACKING
+	@Autowired
+	public HibernateUnitRepository(SessionFactory sessionFactory) {
+		super(Unit.class, sessionFactory);
 	}
 }

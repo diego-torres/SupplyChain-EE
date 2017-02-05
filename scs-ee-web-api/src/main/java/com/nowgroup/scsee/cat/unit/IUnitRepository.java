@@ -21,15 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.service.cat;
+package com.nowgroup.scsee.cat.unit;
 
-import com.nowgroup.scsee.model.cat.Unit;
-import com.nowgroup.scsee.service.SupplyChainService;
+import com.nowgroup.scsee.repository.Repository;
 
 /**
  * @author https://github.com/diego-torres
- *		
+ *
  */
-public interface IUnitService extends SupplyChainService<Unit, Integer> {
+public interface IUnitRepository extends Repository<Unit, Integer> {
 
 }
