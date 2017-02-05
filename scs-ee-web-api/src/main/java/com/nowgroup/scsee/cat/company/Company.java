@@ -42,8 +42,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nowgroup.scsee.geo.address.Address;
 import com.nowgroup.scsee.model.BaseNamableModel;
-import com.nowgroup.scsee.model.loc.Address;
 
 /**
  * The different companies that participate in the supply chain are modeled by

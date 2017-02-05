@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.model.loc;
+package com.nowgroup.scsee.geo.country;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

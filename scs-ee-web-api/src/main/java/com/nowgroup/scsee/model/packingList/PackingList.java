@@ -51,8 +51,8 @@ import com.nowgroup.scsee.cat.customsRegime.CustomsRegime;
 import com.nowgroup.scsee.cat.incoterm.Incoterm;
 import com.nowgroup.scsee.cat.part.Part;
 import com.nowgroup.scsee.cat.unit.Unit;
+import com.nowgroup.scsee.geo.country.Country;
 import com.nowgroup.scsee.model.BaseGenericModel;
-import com.nowgroup.scsee.model.loc.Country;
 
 /**
  * @author https://github.com/diego-torres
