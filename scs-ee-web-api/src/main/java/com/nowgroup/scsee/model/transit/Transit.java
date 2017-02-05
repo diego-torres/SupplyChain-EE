@@ -40,10 +40,10 @@ import org.hibernate.annotations.ColumnDefault;
 
 import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.cat.transportationMode.TransportationMode;
+import com.nowgroup.scsee.cat.unLabel.UnLabel;
 import com.nowgroup.scsee.cat.unit.Unit;
 import com.nowgroup.scsee.model.BaseGenericModel;
 import com.nowgroup.scsee.model.BaseNamableModel;
-import com.nowgroup.scsee.model.cat.UnLabel;
 
 /**
  * @author https://github.com/diego-torres

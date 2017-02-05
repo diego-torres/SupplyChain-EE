@@ -48,9 +48,9 @@ import com.nowgroup.scsee.cat.storage.Storage;
 import com.nowgroup.scsee.cat.tariff.Tariff;
 import com.nowgroup.scsee.cat.trafficType.TrafficType;
 import com.nowgroup.scsee.cat.transportationMode.TransportationMode;
+import com.nowgroup.scsee.cat.unLabel.UnLabel;
 import com.nowgroup.scsee.cat.unit.HibernateUnitRepository;
 import com.nowgroup.scsee.cat.unit.Unit;
-import com.nowgroup.scsee.model.cat.UnLabel;
 import com.nowgroup.scsee.model.inventory.Inventory;
 import com.nowgroup.scsee.model.loc.Address;
 import com.nowgroup.scsee.model.packingList.PackingList;
@@ -63,8 +63,8 @@ import com.nowgroup.scsee.model.transit.Transit;
 @Configuration
 @EntityScan(basePackageClasses = { AssessmentMethod.class, BundleType.class, Company.class, Currency.class,
 		CustomsRegime.class, Incoterm.class, Location.class, Part.class, PartEquiv.class, Storage.class, Tariff.class,
-		TrafficType.class, TransportationMode.class, Unit.class, Address.class, UnLabel.class, Inventory.class,
-		Transit.class, PackingList.class })
+		TrafficType.class, TransportationMode.class, Unit.class, UnLabel.class, Address.class, UnLabel.class,
+		Inventory.class, Transit.class, PackingList.class })
 @ComponentScan(basePackageClasses = { HibernateCompanyRepository.class, HibernateStorageRepository.class,
 		HibernateUnitRepository.class })
 public class PersistenceConfig {
