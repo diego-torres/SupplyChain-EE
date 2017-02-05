@@ -55,7 +55,7 @@ import com.nowgroup.scsee.cat.unit.Unit;
 import com.nowgroup.scsee.geo.address.Address;
 import com.nowgroup.scsee.geo.country.Country;
 import com.nowgroup.scsee.inventory.Inventory;
-import com.nowgroup.scsee.model.packingList.PackingList;
+import com.nowgroup.scsee.packingList.PackingList;
 import com.nowgroup.scsee.transit.Transit;
 
 /**

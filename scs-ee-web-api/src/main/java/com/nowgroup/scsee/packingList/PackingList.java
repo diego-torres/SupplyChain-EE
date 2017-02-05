@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.model.packingList;
+package com.nowgroup.scsee.packingList;
 
 import java.math.BigDecimal;
 import java.util.Date;
