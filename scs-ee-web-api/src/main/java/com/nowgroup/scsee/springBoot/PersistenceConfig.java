@@ -33,6 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
+import com.nowgroup.scsee.cat.assessmentMethod.AssessmentMethod;
 import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.cat.company.HibernateCompanyRepository;
 import com.nowgroup.scsee.cat.storage.Storage;
@@ -48,8 +49,8 @@ import com.nowgroup.scsee.model.transit.Transit;
  * 		
  */
 @Configuration
-@EntityScan(basePackageClasses = { Company.class, Address.class, Storage.class, Unit.class, UnLabel.class,
-		Inventory.class, Transit.class, PackingList.class })
+@EntityScan(basePackageClasses = { AssessmentMethod.class, Company.class, Address.class, Storage.class, Unit.class,
+		UnLabel.class, Inventory.class, Transit.class, PackingList.class })
 @ComponentScan(basePackageClasses = { HibernateCompanyRepository.class })
 public class PersistenceConfig {
 	@Value("${spring.datasource.driver-class-name}")
