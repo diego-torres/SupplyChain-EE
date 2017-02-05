@@ -33,7 +33,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
-import com.nowgroup.scsee.model.cat.Company;
+import com.nowgroup.scsee.cat.company.Company;
+import com.nowgroup.scsee.cat.company.HibernateCompanyRepository;
 import com.nowgroup.scsee.model.cat.Storage;
 import com.nowgroup.scsee.model.cat.UnLabel;
 import com.nowgroup.scsee.model.cat.Unit;
@@ -41,7 +42,6 @@ import com.nowgroup.scsee.model.inventory.Inventory;
 import com.nowgroup.scsee.model.loc.Address;
 import com.nowgroup.scsee.model.packingList.PackingList;
 import com.nowgroup.scsee.model.transit.Transit;
-import com.nowgroup.scsee.repository.cat.HibernateCompanyRepository;
 
 /**
  * @author https://github.com/diego-torres

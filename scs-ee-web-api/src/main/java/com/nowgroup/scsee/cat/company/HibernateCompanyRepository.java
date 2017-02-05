@@ -21,13 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.repository.cat;
+package com.nowgroup.scsee.cat.company;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nowgroup.scsee.model.cat.Company;
 import com.nowgroup.scsee.repository.HibernateRepository;
 
 /**

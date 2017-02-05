@@ -31,8 +31,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nowgroup.scsee.ParameterMisuseException;
+import com.nowgroup.scsee.cat.company.Company;
+import com.nowgroup.scsee.cat.company.Company.CompanyRoleType;
 import com.nowgroup.scsee.model.BaseNamableModel;
-import com.nowgroup.scsee.model.cat.Company.CompanyRoleType;
 
 /**
  * @author https://github.com/diego-torres

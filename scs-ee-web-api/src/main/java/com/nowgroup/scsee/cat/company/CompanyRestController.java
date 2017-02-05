@@ -21,15 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.service.cat;
+package com.nowgroup.scsee.cat.company;
 
-import com.nowgroup.scsee.model.cat.Company;
-import com.nowgroup.scsee.service.SupplyChainService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nowgroup.scsee.controller.rest.BaseRestController;
 
 /**
  * @author https://github.com/diego-torres
  *
  */
-public interface ICompanyService extends SupplyChainService<Company, Integer> {
+@RestController
+@RequestMapping(value = "rest/company")
+public class CompanyRestController extends BaseRestController<Company, Integer> {
+
+	/**
+	 * @param service
+	 */
+	@Autowired
+	public CompanyRestController(ICompanyService service) {
+		super(service);
+	}
 
 }

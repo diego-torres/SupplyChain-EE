@@ -21,30 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.controller.rest.cat;
+package com.nowgroup.scsee.cat.company;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-import com.nowgroup.scsee.controller.rest.BaseRestController;
-import com.nowgroup.scsee.model.cat.Company;
-import com.nowgroup.scsee.service.cat.ICompanyService;
+import com.nowgroup.scsee.service.BaseService;
 
 /**
+ * 
  * @author https://github.com/diego-torres
  *
  */
-@RestController
-@RequestMapping(value = "rest/company")
-public class CompanyRestController extends BaseRestController<Company, Integer> {
+@Service
+public class SpringCompanyService extends BaseService<Company, Integer> implements ICompanyService {
 
 	/**
-	 * @param service
+	 * @param repository
 	 */
 	@Autowired
-	public CompanyRestController(ICompanyService service) {
-		super(service);
+	public SpringCompanyService(ICompanyRepository repository) {
+		super(repository);
 	}
 
 }

@@ -21,29 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.service.cat;
+package com.nowgroup.scsee.cat.company;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.nowgroup.scsee.model.cat.Company;
-import com.nowgroup.scsee.repository.cat.ICompanyRepository;
-import com.nowgroup.scsee.service.BaseService;
+import com.nowgroup.scsee.repository.Repository;
 
 /**
- * 
  * @author https://github.com/diego-torres
  *
  */
-@Service
-public class SpringCompanyService extends BaseService<Company, Integer> implements ICompanyService {
-
-	/**
-	 * @param repository
-	 */
-	@Autowired
-	public SpringCompanyService(ICompanyRepository repository) {
-		super(repository);
-	}
+public interface ICompanyRepository extends Repository<Company, Integer> {
 
 }

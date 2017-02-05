@@ -38,9 +38,9 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.model.BaseGenericModel;
 import com.nowgroup.scsee.model.BaseNamableModel;
-import com.nowgroup.scsee.model.cat.Company;
 import com.nowgroup.scsee.model.cat.Packing;
 import com.nowgroup.scsee.model.cat.TransportationMode;
 import com.nowgroup.scsee.model.cat.UnLabel;

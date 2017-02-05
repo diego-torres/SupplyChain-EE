@@ -35,6 +35,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.model.BaseGenericModel;
 
 /**

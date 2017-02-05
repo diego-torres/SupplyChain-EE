@@ -43,10 +43,10 @@ import org.hibernate.annotations.ColumnDefault;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.model.BaseGenericModel;
 import com.nowgroup.scsee.model.cat.AssessmentMethod;
 import com.nowgroup.scsee.model.cat.BundleType;
-import com.nowgroup.scsee.model.cat.Company;
 import com.nowgroup.scsee.model.cat.Currency;
 import com.nowgroup.scsee.model.cat.CustomsRegime;
 import com.nowgroup.scsee.model.cat.Incoterm;
