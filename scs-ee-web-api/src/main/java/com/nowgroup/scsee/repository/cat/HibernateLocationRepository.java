@@ -26,7 +26,7 @@ package com.nowgroup.scsee.repository.cat;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.nowgroup.scsee.model.cat.Location;
+import com.nowgroup.scsee.cat.location.Location;
 import com.nowgroup.scsee.repository.HibernateRepository;
 
 /**

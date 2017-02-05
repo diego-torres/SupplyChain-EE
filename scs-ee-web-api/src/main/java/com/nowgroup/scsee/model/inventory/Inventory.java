@@ -35,8 +35,8 @@ import javax.validation.ValidationException;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.nowgroup.scsee.cat.location.Location;
 import com.nowgroup.scsee.model.BaseGenericModel;
-import com.nowgroup.scsee.model.cat.Location;
 import com.nowgroup.scsee.model.cat.Part;
 import com.nowgroup.scsee.model.cat.Unit;
 
