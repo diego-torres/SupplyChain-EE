@@ -31,6 +31,9 @@ import javax.validation.ValidationException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.nowgroup.scsee.inventory.Inventory;
+import com.nowgroup.scsee.inventory.InventoryLog;
+
 /**
  * @author https://github.com/diego-torres
  *		

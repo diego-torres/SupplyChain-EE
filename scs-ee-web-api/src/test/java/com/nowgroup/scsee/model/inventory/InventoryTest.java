@@ -30,6 +30,8 @@ import javax.validation.ValidationException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.nowgroup.scsee.inventory.Inventory;
+
 /**
  * @author https://github.com/diego-torres
  * 		

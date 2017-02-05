@@ -21,27 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.repository.cat;
+package com.nowgroup.scsee.cat.location;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.nowgroup.scsee.cat.location.Location;
-import com.nowgroup.scsee.repository.HibernateRepository;
+import com.nowgroup.scsee.repository.Repository;
 
 /**
  * @author https://github.com/diego-torres
- * 		
+ *		
  */
-public class HibernateLocationRepository extends HibernateRepository<Location, Integer>implements ILocationRepository {
-	
-	/**
-	 * 
-	 * 
-	 * @param sessionFactory
-	 */
-	@Autowired
-	public HibernateLocationRepository(SessionFactory sessionFactory) {
-		super(Location.class, sessionFactory);
-	}
+public interface ILocationRepository extends Repository<Location, Integer> {
+
 }
