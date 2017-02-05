@@ -49,8 +49,8 @@ import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.cat.currency.Currency;
 import com.nowgroup.scsee.cat.customsRegime.CustomsRegime;
 import com.nowgroup.scsee.cat.incoterm.Incoterm;
+import com.nowgroup.scsee.cat.part.Part;
 import com.nowgroup.scsee.model.BaseGenericModel;
-import com.nowgroup.scsee.model.cat.Part;
 import com.nowgroup.scsee.model.cat.Unit;
 import com.nowgroup.scsee.model.loc.Country;
 

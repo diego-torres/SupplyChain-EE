@@ -37,6 +37,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.nowgroup.scsee.cat.part.Part;
 import com.nowgroup.scsee.model.Model;
 import com.nowgroup.scsee.model.cat.PartEquiv.PartEquivKey;
 
