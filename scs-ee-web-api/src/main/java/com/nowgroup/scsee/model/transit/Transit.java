@@ -41,9 +41,9 @@ import org.hibernate.annotations.ColumnDefault;
 import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.model.BaseGenericModel;
 import com.nowgroup.scsee.model.BaseNamableModel;
-import com.nowgroup.scsee.model.cat.Packing;
 import com.nowgroup.scsee.model.cat.TransportationMode;
 import com.nowgroup.scsee.model.cat.UnLabel;
+import com.nowgroup.scsee.model.cat.Unit;
 
 /**
  * @author https://github.com/diego-torres
@@ -493,7 +493,7 @@ public class Transit extends BaseGenericModel {
 		
 		private Transit		transit;
 		private Integer		quantity	= 0;
-		private Packing		packingUnit;
+		private Unit		packingUnit;
 		private BigDecimal	weight		= BigDecimal.ZERO;
 		private BigDecimal	length		= BigDecimal.ZERO;
 		private BigDecimal	height		= BigDecimal.ZERO;
@@ -564,7 +564,7 @@ public class Transit extends BaseGenericModel {
 		 */
 		@ManyToOne(fetch = FetchType.EAGER, optional = false)
 		@JoinColumn(name = "packing_unit_id")
-		public Packing getPackingUnit() {
+		public Unit getPackingUnit() {
 			return packingUnit;
 		}
 		
@@ -572,7 +572,7 @@ public class Transit extends BaseGenericModel {
 		 * @param packingUnit
 		 *            the packingUnit to set
 		 */
-		public void setPackingUnit(Packing packingUnit) {
+		public void setPackingUnit(Unit packingUnit) {
 			this.packingUnit = packingUnit;
 		}
 		
