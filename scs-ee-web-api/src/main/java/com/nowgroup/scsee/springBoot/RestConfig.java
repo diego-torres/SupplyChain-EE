@@ -6,9 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import com.nowgroup.scsee.cat.company.CompanyRestController;
 import com.nowgroup.scsee.cat.storage.StorageRestController;
 import com.nowgroup.scsee.cat.unit.UnitRestController;
+import com.nowgroup.scsee.packingList.PackingListRestController;
 
 @Configuration
 @ComponentScan(basePackageClasses = { CompanyRestController.class, StorageRestController.class,
-		UnitRestController.class })
+		UnitRestController.class, PackingListRestController.class })
 public class RestConfig {
 }

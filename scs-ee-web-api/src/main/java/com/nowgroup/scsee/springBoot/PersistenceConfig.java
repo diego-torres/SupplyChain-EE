@@ -55,6 +55,7 @@ import com.nowgroup.scsee.cat.unit.Unit;
 import com.nowgroup.scsee.geo.address.Address;
 import com.nowgroup.scsee.geo.country.Country;
 import com.nowgroup.scsee.inventory.Inventory;
+import com.nowgroup.scsee.packingList.HibernatePackingListRepository;
 import com.nowgroup.scsee.packingList.PackingList;
 import com.nowgroup.scsee.transit.Transit;
 
@@ -68,7 +69,7 @@ import com.nowgroup.scsee.transit.Transit;
 		TrafficType.class, TransportationMode.class, Unit.class, UnLabel.class, Inventory.class, Address.class,
 		Country.class, Transit.class, PackingList.class })
 @ComponentScan(basePackageClasses = { HibernateCompanyRepository.class, HibernateLocationRepository.class,
-		HibernateStorageRepository.class, HibernateUnitRepository.class })
+		HibernateStorageRepository.class, HibernateUnitRepository.class, HibernatePackingListRepository.class })
 public class PersistenceConfig {
 	@Value("${spring.datasource.driver-class-name}")
 	private String dbDriver;

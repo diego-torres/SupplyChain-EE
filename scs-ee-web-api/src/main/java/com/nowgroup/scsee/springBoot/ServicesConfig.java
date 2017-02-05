@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import com.nowgroup.scsee.cat.company.SpringCompanyService;
 import com.nowgroup.scsee.cat.storage.SpringStorageService;
 import com.nowgroup.scsee.cat.unit.SpringUnitService;
+import com.nowgroup.scsee.packingList.SpringPackingListService;
 
 @Configuration
-@ComponentScan(basePackageClasses = { SpringCompanyService.class, SpringStorageService.class, SpringUnitService.class })
+@ComponentScan(basePackageClasses = { SpringCompanyService.class, SpringStorageService.class, SpringUnitService.class,
+		SpringPackingListService.class })
 public class ServicesConfig {
 
 }
