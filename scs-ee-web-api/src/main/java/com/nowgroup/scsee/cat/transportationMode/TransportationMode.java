@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.model.cat;
+package com.nowgroup.scsee.cat.transportationMode;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
