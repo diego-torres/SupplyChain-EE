@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.nowgroup.scsee.cat.company.SpringCompanyService;
-import com.nowgroup.scsee.service.cat.SpringStorageService;
+import com.nowgroup.scsee.cat.storage.SpringStorageService;
 
 @Configuration
 @ComponentScan(basePackageClasses = { SpringCompanyService.class, SpringStorageService.class })

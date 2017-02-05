@@ -21,15 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.repository.cat;
+package com.nowgroup.scsee.cat.storage;
 
-import com.nowgroup.scsee.model.cat.Storage;
-import com.nowgroup.scsee.repository.Repository;
+import com.nowgroup.scsee.service.SupplyChainService;
 
 /**
  * @author https://github.com/diego-torres
  *
  */
-public interface IStorageRepository extends Repository<Storage, Integer> {
+public interface IStorageService extends SupplyChainService<Storage, Integer> {
 
 }

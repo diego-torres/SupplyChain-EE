@@ -35,7 +35,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 import com.nowgroup.scsee.cat.company.Company;
 import com.nowgroup.scsee.cat.company.HibernateCompanyRepository;
-import com.nowgroup.scsee.model.cat.Storage;
+import com.nowgroup.scsee.cat.storage.Storage;
 import com.nowgroup.scsee.model.cat.UnLabel;
 import com.nowgroup.scsee.model.cat.Unit;
 import com.nowgroup.scsee.model.inventory.Inventory;

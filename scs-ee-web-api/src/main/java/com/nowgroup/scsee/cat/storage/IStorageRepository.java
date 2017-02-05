@@ -21,28 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.service.cat;
+package com.nowgroup.scsee.cat.storage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.nowgroup.scsee.model.cat.Storage;
-import com.nowgroup.scsee.repository.cat.IStorageRepository;
-import com.nowgroup.scsee.service.BaseService;
+import com.nowgroup.scsee.repository.Repository;
 
 /**
  * @author https://github.com/diego-torres
- *		
+ *
  */
-@Service
-public class SpringStorageService extends BaseService<Storage, Integer>implements IStorageService {
-	
-	/**
-	 * @param repository
-	 */
-	@Autowired
-	public SpringStorageService(IStorageRepository repository) {
-		super(repository);
-	}
-	
+public interface IStorageRepository extends Repository<Storage, Integer> {
+
 }

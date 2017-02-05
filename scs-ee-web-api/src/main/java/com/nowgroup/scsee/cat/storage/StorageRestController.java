@@ -21,15 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.controller.rest.cat;
+package com.nowgroup.scsee.cat.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nowgroup.scsee.controller.rest.BaseRestController;
-import com.nowgroup.scsee.model.cat.Storage;
-import com.nowgroup.scsee.service.cat.IStorageService;
 
 /**
  * @author https://github.com/diego-torres

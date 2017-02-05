@@ -29,6 +29,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.nowgroup.scsee.cat.storage.Storage;
 import com.nowgroup.scsee.model.BaseNamableModel;
 
 /**
