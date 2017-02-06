@@ -23,6 +23,7 @@
  */
 package com.nowgroup.scsee.authentication;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author https://github.com/diego-torres
  *
  */
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(value = "rest/authenticate")
 public class AuthenticationRestController {

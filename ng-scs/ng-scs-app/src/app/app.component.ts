@@ -5,6 +5,8 @@ import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/
 import { BaThemeConfig } from './theme/theme.config';
 import { layoutPaths } from './theme/theme.constants';
 
+import { AuthenticationService } from './login/shared';
+
 import 'style-loader!./app.scss';
 import 'style-loader!./theme/initial.scss';
 
@@ -29,7 +31,8 @@ export class App {
               private _imageLoader: BaImageLoaderService,
               private _spinner: BaThemeSpinner,
               private viewContainerRef: ViewContainerRef,
-              private themeConfig: BaThemeConfig) {
+              private themeConfig: BaThemeConfig,
+              private authService: AuthenticationService) {
 
     themeConfig.config();
 

@@ -1,8 +1,6 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/nowgroup_scs
-    #username: web-api
-    #password: Summer@2016
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -12,9 +10,4 @@ spring:
     properties:
       hibernate:
         current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
-        hbm2ddl.auto: create-drop
-endpoints:
-  cors:
-    allowed-headers: '*'
-    allowed-methods: '*'
-    allowed-origins: '*'
+        hbm2ddl.auto: validate

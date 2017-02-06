@@ -1,0 +1,29 @@
+<div class="auth-main">
+    <div class="auth-block">
+        <h1>Ingresar a NG-SCS</h1>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+            <div class="form-group row" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+                <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+
+                <div class="col-sm-10">
+                    <input [formControl]="email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+                <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
+
+                <div class="col-sm-10">
+                    <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="Contraseña">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                    <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth">Ingresar</button>
+                    <a routerLink="/login" class="forgot-pass">¿Ha olvidado su contraseña?</a>
+                </div>
+            </div>
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        </form>
+    </div>
+</div>

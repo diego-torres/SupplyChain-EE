@@ -16,12 +16,18 @@ import { App } from './app.component';
 import { AppState, InternalStateType } from './app.service';
 import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
-import { PagesModule } from './pages/pages.module';
+import { LoginModule } from './login/login.module';
+import { HomeComponent } from './home';
+
+import { AuthenticationService } from './login/shared';
+import { AuthGuard } from './guard';
 
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
-  GlobalState
+  GlobalState,
+  AuthenticationService,
+  AuthGuard
 ];
 
 export type StoreType = {
@@ -36,7 +42,8 @@ export type StoreType = {
 @NgModule({
   bootstrap: [App],
   declarations: [
-    App
+    App,
+    HomeComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -45,7 +52,7 @@ export type StoreType = {
     FormsModule,
     ReactiveFormsModule,
     NgaModule.forRoot(),
-    PagesModule,
+    LoginModule,
     routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

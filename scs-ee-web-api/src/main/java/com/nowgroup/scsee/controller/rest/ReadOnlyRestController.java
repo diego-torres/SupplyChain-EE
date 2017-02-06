@@ -26,6 +26,7 @@ package com.nowgroup.scsee.controller.rest;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,7 @@ import com.nowgroup.scsee.service.SupplyChainReadOnlyService;
  * @param <U>
  *            The Model ID Type
  */
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReadOnlyRestController<T extends Model<U>, U extends Serializable> {
 	private SupplyChainReadOnlyService<T, U> readOnlyService;
 	
