@@ -26,8 +26,8 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Nowgroup - Supply Chain Software',
-  description: 'Nowgroup supply chain software',
+  title: 'ng2-admin - Angular 2 Admin Template',
+  description: 'Free Angular 2 and Bootstrap 4 Admin Template',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
