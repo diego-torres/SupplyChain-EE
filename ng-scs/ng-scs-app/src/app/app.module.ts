@@ -17,7 +17,7 @@ import { AppState, InternalStateType } from './app.service';
 import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { LoginModule } from './login/login.module';
-import { HomeComponent } from './home';
+import { HomeModule } from './home/home.module';
 
 import { AuthenticationService } from './login/shared';
 import { AuthGuard } from './guard';
@@ -42,8 +42,7 @@ export type StoreType = {
 @NgModule({
   bootstrap: [App],
   declarations: [
-    App,
-    HomeComponent
+    App
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -53,6 +52,7 @@ export type StoreType = {
     ReactiveFormsModule,
     NgaModule.forRoot(),
     LoginModule,
+    HomeModule,
     routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

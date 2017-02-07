@@ -57,18 +57,42 @@ export const MENU = [
         },
         children: [
           {
-            path: 'lista',
+            path: 'all',
             data: {
               menu: {
-                title: 'Lista',
+                title: 'Todas',
               }
             }
           },
           {
-            path: 'create',
+            path: 'to-inbound',
             data: {
               menu: {
-                title: 'Nueva',
+                title: 'Por Entrar',
+              }
+            }
+          },
+          {
+            path: 'inbound',
+            data: {
+              menu: {
+                title: 'Con Entrada',
+              }
+            }
+          },
+          {
+            path: 'ph-rev',
+            data: {
+              menu: {
+                title: 'Revisión Física',
+              }
+            }
+          },
+          {
+            path: 'legal-rev',
+            data: {
+              menu: {
+                title: 'Revisión Legal',
               }
             }
           }
