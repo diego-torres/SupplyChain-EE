@@ -1,0 +1,25 @@
+<form>
+    <div class="form-group">
+        <label for="streetAddress">Calle y número</label>
+        <input [(ngModel)]="streetAddress" type="text" class="form-control" id="streetAddress" placeholder="Calle y número">
+    </div>
+    <div class="form-group">
+        <label for="addressAdditionalInfo">Colonia o información adicional</label>
+        <input [(ngModel)]="addressAdditionalInfo" type="text" class="form-control" id="addressAdditionalInfo" placeholder="Colonia o información adicional">
+    </div>
+    <div class="form-group">
+        <label for="country">País</label>
+        <input [(ngModel)]="country" type="text" class="form-control" id="country" placeholder="País">
+        <label for="city">Ciudad</label>
+        <input [(ngModel)]="city" type="text" class="form-control" id="city" placeholder="Ciudad">
+        <label for="addressState">Estado</label>
+        <input [(ngModel)]="addressState" type="text" class="form-control" id="addressState" placeholder="Estado">
+        <label for="zip">C.P.</label>
+        <input [(ngModel)]="zip" type="text" class="form-control" id="<zip>" placeholder="C.P.">
+    </div>
+    <div class="form-group">
+        <label for="contactName">Nombre del Responsable</label>
+        <input [(ngModel)]="contactName" type="text" class="form-control" id="contactName" placeholder="Nombre del Responsable">
+    </div>
+    <button type="submit" class="btn btn-danger">Submit</button>
+</form>

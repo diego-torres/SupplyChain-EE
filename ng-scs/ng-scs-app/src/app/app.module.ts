@@ -18,6 +18,7 @@ import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
+import { CatalogsModule } from './catalogs/catalogs.module';
 
 import { AuthenticationService } from './login/shared';
 import { AuthGuard } from './guard';
@@ -53,6 +54,7 @@ export type StoreType = {
     NgaModule.forRoot(),
     LoginModule,
     HomeModule,
+    CatalogsModule,
     routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

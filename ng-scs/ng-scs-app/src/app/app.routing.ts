@@ -9,6 +9,7 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'catalogs', loadChildren: 'app/catalogs/catalogs.module#CatalogsModule', canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }
 ];
 

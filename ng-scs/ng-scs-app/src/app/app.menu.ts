@@ -35,10 +35,10 @@ export const MENU = [
             }
           },
           {
-            path: 'clients',
+            path: 'companies',
             data: {
               menu: {
-                title: 'Clientes',
+                title: 'Compañías',
               }
             }
           }
