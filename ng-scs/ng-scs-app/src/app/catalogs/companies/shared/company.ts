@@ -1,11 +1,11 @@
 import Address from '../../../geo/address/address';
 
-export class Company {
+export interface Company {
     id: number;
     name: string;
-    roles: string[];
-    addresses: Address[];
-    constructor (values: Object = {}){
-        Object.assign(this, values);
-    }
+    taxId: string;
+    email: string;
+    companyRole: number;
+    roles?: string[];
+    addresses?: Address[];
 }

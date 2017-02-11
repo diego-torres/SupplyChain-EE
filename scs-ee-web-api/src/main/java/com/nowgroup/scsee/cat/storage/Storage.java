@@ -32,7 +32,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nowgroup.scsee.ParameterMisuseException;
 import com.nowgroup.scsee.cat.company.Company;
-import com.nowgroup.scsee.cat.company.Company.CompanyRoleType;
 import com.nowgroup.scsee.model.BaseNamableModel;
 
 /**
@@ -67,8 +66,7 @@ public class Storage extends BaseNamableModel {
 	 */
 	public void setCompany(Company company) throws ParameterMisuseException {
 		if (company != null) {
-			boolean isReceiver = company.getCompanyRole().stream().anyMatch(
-					role -> role.getKey() != null && role.getKey().getRoleName() == CompanyRoleType.RECEIVER.name());
+			boolean isReceiver = company.getCompanyRole() % 7 == 0;
 			if (!isReceiver) throw new ParameterMisuseException("Company must be receiver to assign storages in it.");
 		}
 		this.company = company;

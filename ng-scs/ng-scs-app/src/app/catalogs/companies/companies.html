@@ -2,8 +2,7 @@
 
     <div class="row">
         <ba-card title="Compañías" baCardClass="with-scroll">
-            <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+            <ng2-smart-table [settings]="settings" [source]="source" (create)="onCreate($event)"></ng2-smart-table>
         </ba-card>
     </div>
-
 </div>

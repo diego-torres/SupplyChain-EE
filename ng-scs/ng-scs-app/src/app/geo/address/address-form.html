@@ -1,0 +1,32 @@
+<form [formGroup]="addressForm">
+    <div class="form-group">
+        <label for="addressType">Uso de dirección</label>
+        <input formControlName="addressType" type="text" class="form-control" id="addressType" placeholder="Uso de la dirección">
+    </div>
+    <div class="form-group">
+        <label for="streetAddress">Calle y número</label>
+        <input formControlName="street" type="text" class="form-control" id="streetAddress" placeholder="Calle y número">
+    </div>
+    <div class="form-group">
+        <label for="addressAdditionalInfo">Colonia o información adicional</label>
+        <input formControlName="additionalInfo" type="text" class="form-control" id="addressAdditionalInfo" placeholder="Colonia o información adicional">
+    </div>
+    <div class="form-group">
+        <label for="country">País</label>
+        <input formControlName="country" type="text" class="form-control" id="country" placeholder="País">
+        <label for="city">Ciudad</label>
+        <input formControlName="city" type="text" class="form-control" id="city" placeholder="Ciudad">
+        <label for="addressState">Estado</label>
+        <input formControlName="state" type="text" class="form-control" id="addressState" placeholder="Estado">
+        <label for="zip">C.P.</label>
+        <input formControlName="zip" type="text" class="form-control" id="<zip>" placeholder="C.P.">
+    </div>
+    <div class="form-group">
+        <label for="contactName">Nombre del Responsable</label>
+        <input formControlName="contactName" type="text" class="form-control" id="contactName" placeholder="Nombre del Responsable">
+    </div>
+    <div class="form-group">
+        <label for="landLine">Teléfono</label>
+        <input formControlName="landLine" type="text" class="form-control" id="landLine" placeholder="Teléfono">
+    </div>
+</form>

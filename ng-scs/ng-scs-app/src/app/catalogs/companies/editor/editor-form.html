@@ -1,8 +1,96 @@
-<form>
+<form novalidate (ngSubmit)="save(fgClient.value, fgClient.valid)" [formGroup]="fgClient">
     <div class="form-group">
         <label for="companyName">Razón Social</label>
-        <input [(ngModel)]="company.name" type="text" class="form-control" id="companyName" placeholder="Razón social">
+        <input formControlName="name" type="text" class="form-control" name="companyName" placeholder="Razón social">
+        <small [hidden]="fgClient.controls.name.valid || (fgClient.controls.name.pristine && !submitted)">
+            El nombre es requerido (5 caracteres como mínimo).
+        </small>
     </div>
+    <div class="form-group">
+        <label for="companyTaxId">RFC</label>
+        <input formControlName="taxId" type="text" class="form-control" name="companyTaxId" id="companyTaxId" placeholder="RFC">
+        <small [hidden]="fgClient.controls.taxId.valid || (fgClient.controls.taxId.pristine && !submitted)">
+            El RFC debe tener 9 caracteres como mínimo.
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="companyInvoiceEmail">email de facturación</label>
+        <input formControlName="email" type="email" class="form-control" name="companyInvoiceEmail" id="companyInvoiceEmail" placeholder="email de facturación">
+        <small [hidden]="fgClient.controls.email.valid || (fgClient.controls.email.pristine && !submitted)">
+            Ingrese un correo electrónico válido.
+        </small>
+    </div>
+    <div class="form-group">
+        <div class="input-demo checkbox-demo row">
+            <div class="ng-untouched ng-pristine ng-valid">
+                <div class="">
+                    <div class="ng-untouched ng-pristine ng-valid">
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="buyer" name="companyTypeBuyer" />
+                                <span>Comprador</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="seller" name="companyTypeSeller" />
+                                <span>Vendedor</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="sender" name="companyTypeSender" />
+                                <span>Remitente</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="receiver" name="companyTypeReceiver" />
+                                <span>Destinatario</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="freighter" name="companyTypeFreighter" />
+                                <span>Transportista</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="trader" name="companyTypeTrader" />
+                                <span>Agente Aduanal</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="billable" name="companyTypeBillable" />
+                                <span>Facturable</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="margin-20">
+        <button class="btn btn-default btn-with-icon" (click)="addAddress()"><i class="ion-location"></i> Agregar Dirección</button>
+    </div>
+    <div class="row" formArrayName="addresses">
+        <div *ngFor="let address of fgClient.controls.addresses.controls; let i=index" class="col-md-6">
+            <ba-card title="Address {{ i + 1 }}" baCardClass="with-scroll" [formGroupName]="i">
+                <button class="btn btn-danger btn-with-icon" (click)="removeAddress(i)"><i class="ion-location"></i> Borrar Dirección</button>
+                <address [group]="fgClient.controls.addresses.controls[i]"></address>
+            </ba-card>
+        </div>
+    </div><br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success btn-with-icon"><i class="ion-android-checkmark-circle"></i> Guardar</button>
+    </div>
+    <div class="clearfix"></div>
 
-    <button type="submit" class="btn btn-danger">Submit</button>
+    <div class="margin-20">
+        <div>myForm details:-</div>
+        <pre>Is myForm valid?: <br>{{fgClient.valid | json}}</pre>
+        <pre>form value: <br>{{fgClient.value | json}}</pre>
+    </div>
 </form>

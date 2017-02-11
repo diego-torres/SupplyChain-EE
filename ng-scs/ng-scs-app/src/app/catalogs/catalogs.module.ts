@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -9,13 +9,16 @@ import { routing }       from './catalogs.routing';
 import { RatingModule } from 'ng2-bootstrap';
 import { Catalogs } from './catalogs.component';
 import { Companies } from './companies';
+import { CompanyEditorForm } from './companies/editor/editor.component';
 import { Parts } from './parts';
+import { AddressComponent } from '../geo/address/address.component';
 
 import { CompanyService } from './companies/shared/company.service';
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     NgaModule,
     RatingModule.forRoot(),
@@ -25,6 +28,8 @@ import { CompanyService } from './companies/shared/company.service';
   declarations: [
     Catalogs,
     Companies,
+    CompanyEditorForm,
+    AddressComponent,
     Parts
   ],
   providers: [

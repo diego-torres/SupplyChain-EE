@@ -23,25 +23,17 @@
  */
 package com.nowgroup.scsee.cat.company;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nowgroup.scsee.geo.address.Address;
 import com.nowgroup.scsee.model.BaseNamableModel;
 
@@ -54,10 +46,11 @@ import com.nowgroup.scsee.model.BaseNamableModel;
  */
 @Entity
 @Table(name = "cat_companies")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Company extends BaseNamableModel {
 	private static final long	serialVersionUID	= 1L;
-	private Set<CompanyRole>	companyRole			= new HashSet<>();
+	private Integer				companyRole			= 0;
+	private String				taxId;
+	private String				email;
 	private Set<Address>		addresses			= new HashSet<>();
 	
 	/**
@@ -77,10 +70,15 @@ public class Company extends BaseNamableModel {
 	}
 	
 	/**
+	 * Buyer = 2, Seller = 3, Sender = 5, Receiver = 7, Freighter = 11, Trade
+	 * Agency = 13, Billable = 17 UNKNOWN = 0 If a company is buyer and
+	 * freighter then 2 * 11 = 22, then the role is 22. When calculating the
+	 * role, if [role]%2 = 0 then the company is a buyer.
+	 * 
 	 * @return the companyRole
 	 */
-	@OneToMany(mappedBy = "key.company", fetch = FetchType.EAGER, orphanRemoval = true)
-	public Set<CompanyRole> getCompanyRole() {
+	@Column(name = "company_role")
+	public Integer getCompanyRole() {
 		return companyRole;
 	}
 	
@@ -88,7 +86,7 @@ public class Company extends BaseNamableModel {
 	 * @param companyRole
 	 *            the companyRole to set
 	 */
-	public void setCompanyRole(Set<CompanyRole> companyRole) {
+	public void setCompanyRole(Integer companyRole) {
 		this.companyRole = companyRole;
 	}
 	
@@ -109,209 +107,33 @@ public class Company extends BaseNamableModel {
 		this.addresses = addresses;
 	}
 	
-	@Entity
-	@Table(name = "cross_company_role")
-	public static class CompanyRole implements Serializable {
-		private static final long	serialVersionUID	= 1L;
-		private CompanyRoleKey		key;
-		
-		/**
-		 * 
-		 */
-		public CompanyRole() {
-		}
-		
-		/**
-		 * 
-		 * @param company
-		 * @param roleName
-		 */
-		public CompanyRole(Company company, String roleName) {
-			CompanyRoleKey key = new CompanyRoleKey(company, roleName);
-			this.key = key;
-		}
-		
-		/**
-		 * 
-		 * @param company
-		 * @param roleType
-		 */
-		public CompanyRole(Company company, CompanyRoleType roleType) {
-			CompanyRoleKey key = new CompanyRoleKey(company, roleType);
-			this.key = key;
-		}
-		
-		/**
-		 * @param key
-		 */
-		public CompanyRole(CompanyRoleKey key) {
-			this.key = key;
-		}
-		
-		/**
-		 * @return the key
-		 */
-		@EmbeddedId
-		public CompanyRoleKey getKey() {
-			return key;
-		}
-		
-		/**
-		 * @param key
-		 *            the key to set
-		 */
-		public void setKey(CompanyRoleKey key) {
-			this.key = key;
-		}
-		
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((key == null) ? 0 : key.hashCode());
-			return result;
-		}
-		
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) return true;
-			if (obj == null) return false;
-			if (!(obj instanceof CompanyRole)) return false;
-			CompanyRole other = (CompanyRole) obj;
-			if (key == null) {
-				if (other.key != null) return false;
-			} else if (!key.equals(other.key)) return false;
-			return true;
-		}
+	/**
+	 * @return the taxId
+	 */
+	public String getTaxId() {
+		return taxId;
 	}
 	
-	@Embeddable
-	public static class CompanyRoleKey implements Serializable {
-		private static final long	serialVersionUID	= 1L;
-		private Company				company;
-		private CompanyRoleType		roleType;
-		
-		/**
-		 * 
-		 */
-		public CompanyRoleKey() {
-		}
-		
-		/**
-		 * @param company
-		 * @param roleName
-		 */
-		public CompanyRoleKey(Company company, String roleName) {
-			this.company = company;
-			this.setRoleName(roleName);
-		}
-		
-		/**
-		 * 
-		 * @param company
-		 * @param crt
-		 */
-		public CompanyRoleKey(Company company, CompanyRoleType crt) {
-			this.company = company;
-			this.roleType = crt;
-		}
-		
-		/**
-		 * @return the company
-		 */
-		@ManyToOne(	fetch = FetchType.LAZY, optional = false,
-					cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST })
-		@JoinColumn(name = "company_id")
-		@JsonIgnore
-		public Company getCompany() {
-			return company;
-		}
-		
-		/**
-		 * @param company
-		 *            the company to set
-		 */
-		public void setCompany(Company company) {
-			this.company = company;
-		}
-		
-		/**
-		 * @return the roleName
-		 */
-		@Column(name = "role_name", length = 20, nullable = false)
-		public String getRoleName() {
-			return roleType.name();
-		}
-		
-		/**
-		 * @param roleName
-		 *            the roleName to set
-		 */
-		public void setRoleName(String roleName) {
-			try {
-				this.roleType = CompanyRoleType.valueOf(roleName);
-			} catch (Exception e) {
-				this.roleType = CompanyRoleType.UNKNOWN;
-			}
-		}
-		
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((company == null) ? 0 : company.hashCode());
-			result = prime * result + ((roleType == null) ? 0 : roleType.hashCode());
-			return result;
-		}
-		
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#equals(java.lang.Object)
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) return true;
-			if (obj == null) return false;
-			if (!(obj instanceof CompanyRoleKey)) return false;
-			CompanyRoleKey other = (CompanyRoleKey) obj;
-			if (company == null) {
-				if (other.company != null) return false;
-			} else if (!company.equals(other.company)) return false;
-			if (roleType == null) {
-				if (other.roleType != null) return false;
-			} else if (this.roleType != other.roleType) return false;
-			return true;
-		}
-		
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return "CompanyRoleKey [" + (company != null ? "company=" + company + ", " : "")
-					+ (roleType != null ? "roleName=" + roleType.name() : "") + "]";
-		}
+	/**
+	 * @param taxId
+	 *            the taxId to set
+	 */
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
 	}
 	
-	public static enum CompanyRoleType {
-		UNKNOWN, PURCHASER, SELLER, RECEIVER, SENDER, FREIGHTER, TRADE_AGENCY, BILLABLE
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+	
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

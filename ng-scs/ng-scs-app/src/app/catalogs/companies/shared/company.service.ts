@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Company } from './company';
+import { GridCompany } from './grid.company';
 
 @Injectable()
 export class CompanyService {

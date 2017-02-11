@@ -11,8 +11,4 @@ export default class Address {
     landLine: string;
     contactName: string;
     addressType: string;
-
-    constructor (values: Object = {}){
-        Object.assign(this, values);
-    }
 }

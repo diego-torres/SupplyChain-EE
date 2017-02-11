@@ -1,7 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { LocalDataSource } from 'ng2-smart-table';
 
 import { CompanyService } from './shared/company.service';
-import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
     selector: 'companies',
@@ -34,24 +36,28 @@ export class Companies {
                 title: 'ID',
                 type: 'number'
             },
-            firstName: {
+            companyName: {
                 title: 'Razón Social',
                 type: 'string'
             },
-            lastName: {
+            companyRoles: {
+                title: 'Roles de uso',
+                type: 'string'
+            },
+            companyTaxId: {
+                title: 'RFC',
+                type: 'string'
+            },
+            companyCountry: {
+                title: 'País',
+                type: 'string'
+            },
+            companyAddressCity: {
                 title: 'Ciudad',
                 type: 'string'
             },
-            username: {
+            companyAddressState: {
                 title: 'Estado',
-                type: 'string'
-            },
-            email: {
-                title: 'Código Postal',
-                type: 'string'
-            },
-            age: {
-                title: 'Roles de uso',
                 type: 'string'
             }
         }
@@ -59,7 +65,11 @@ export class Companies {
 
     source: LocalDataSource = new LocalDataSource();
 
-    constructor(protected service: CompanyService) {
+    constructor(protected service: CompanyService, private router: Router) {
         this.service.getAllCompanies().then((data) => { this.source.load(data); });
+    }
+
+    onCreate(event): void {
+        this.router.navigate(['/catalogs/companies/editor', 0]);
     }
 }
