@@ -27,7 +27,7 @@ import com.nowgroup.scsee.service.SupplyChainService;
 
 /**
  * @author https://github.com/diego-torres
- *
+ * 		
  */
 public interface ICompanyService extends SupplyChainService<Company, Integer> {
 

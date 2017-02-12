@@ -31,12 +31,12 @@ import com.nowgroup.scsee.controller.rest.BaseRestController;
 
 /**
  * @author https://github.com/diego-torres
- *
+ *		
  */
 @RestController
 @RequestMapping(value = "rest/company")
 public class CompanyRestController extends BaseRestController<Company, Integer> {
-
+	
 	/**
 	 * @param service
 	 */
@@ -44,5 +44,5 @@ public class CompanyRestController extends BaseRestController<Company, Integer> 
 	public CompanyRestController(ICompanyService service) {
 		super(service);
 	}
-
+	
 }

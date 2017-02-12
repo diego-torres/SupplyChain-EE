@@ -21,54 +21,70 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.cat.storage;
+package com.nowgroup.scsee.geo.state;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.nowgroup.scsee.ParameterMisuseException;
-import com.nowgroup.scsee.cat.company.Company;
+import com.nowgroup.scsee.geo.country.Country;
 import com.nowgroup.scsee.model.BaseNamableModel;
 
 /**
  * @author https://github.com/diego-torres
- * 		
+ *
  */
 @Entity
-@Table(name = "cat_storage")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Storage extends BaseNamableModel {
-	private static final long	serialVersionUID	= 1L;
-	private Company				company;
+@Table(	name = "geo_state",
+		uniqueConstraints = { @UniqueConstraint(columnNames = { "country_id", "conventional_abreviation" }, name = "ux_country_state") })
+public class GeoState extends BaseNamableModel {
+	private static final long serialVersionUID = 1L;
 	
+	private Country country;
+	private String conventionalAbreviation;
+
 	/**
 	 * 
 	 */
-	public Storage() {
+	public GeoState() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	/**
-	 * @return the company
+	 * @return the country
 	 */
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "company_id")
-	public Company getCompany() {
-		return company;
+	@JoinColumn(name = "country_id", foreignKey=@ForeignKey(name="FK_GEO_COUNTRY_GEO_STATE"))
+	public Country getCountry() {
+		return country;
 	}
 	
 	/**
-	 * @param company
-	 *            the company to set
+	 * @param country
+	 *            the country to set
 	 */
-	public void setCompany(Company company) throws ParameterMisuseException {
-		if (company != null) {
-			boolean isReceiver = company.getRoles().contains("receiver");
-			if (!isReceiver) throw new ParameterMisuseException("Company must be receiver to assign storages in it.");
-		}
-		this.company = company;
+	public void setCountry(Country country) {
+		this.country = country;
 	}
+
+	/**
+	 * @return the conventionalAbreviation
+	 */
+	@Column(name="conventional_abreviation", length=8)
+	public String getConventionalAbreviation() {
+		return conventionalAbreviation;
+	}
+
+	/**
+	 * @param conventionalAbreviation the conventionalAbreviation to set
+	 */
+	public void setConventionalAbreviation(String conventionalAbreviation) {
+		this.conventionalAbreviation = conventionalAbreviation;
+	}
+	
 }

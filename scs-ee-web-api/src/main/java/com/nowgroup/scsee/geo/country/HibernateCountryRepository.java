@@ -21,14 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.cat.company;
+package com.nowgroup.scsee.geo.country;
 
-import com.nowgroup.scsee.repository.Repository;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.nowgroup.scsee.repository.HibernateReadOnlyRepository;
 
 /**
  * @author https://github.com/diego-torres
- *		
+ * 		
  */
-public interface ICompanyRepository extends Repository<Company, Integer> {
-
+@Repository
+public class HibernateCountryRepository extends HibernateReadOnlyRepository<Country, Integer>
+										implements ICountryRepository {
+										
+	/**
+	 * @param type
+	 * @param sessionFactory
+	 */
+	@Autowired
+	public HibernateCountryRepository(SessionFactory sessionFactory) {
+		super(Country.class, sessionFactory);
+	}
+	
 }

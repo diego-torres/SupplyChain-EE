@@ -21,14 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.cat.company;
+package com.nowgroup.scsee.geo.country;
 
-import com.nowgroup.scsee.repository.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nowgroup.scsee.service.BaseReadOnlyService;
 
 /**
  * @author https://github.com/diego-torres
- *		
+ * 		
  */
-public interface ICompanyRepository extends Repository<Company, Integer> {
-
+@Service
+public class SpringCountryService extends BaseReadOnlyService<Country, Integer>implements ICountryService {
+	
+	/**
+	 * @param readOnlyRepository
+	 */
+	@Autowired
+	public SpringCountryService(ICountryRepository repository) {
+		super(repository);
+	}
+	
 }

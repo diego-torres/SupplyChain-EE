@@ -35,7 +35,7 @@ import com.nowgroup.scsee.model.BaseNamableModel;
  *		
  */
 @Entity
-@Table(	name = "loc_country",
+@Table(	name = "geo_country",
 		uniqueConstraints = { @UniqueConstraint(columnNames = { "country_code" }, name = "ux_country_code") })
 public class Country extends BaseNamableModel {
 	private static final long	serialVersionUID	= 1L;

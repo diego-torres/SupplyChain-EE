@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.cat.company;
+package com.nowgroup.scsee.geo.country;
 
-import com.nowgroup.scsee.repository.Repository;
+import com.nowgroup.scsee.repository.ReadOnlyRepository;
 
 /**
  * @author https://github.com/diego-torres
  *		
  */
-public interface ICompanyRepository extends Repository<Company, Integer> {
+public interface ICountryRepository extends ReadOnlyRepository<Country, Integer> {
 
 }

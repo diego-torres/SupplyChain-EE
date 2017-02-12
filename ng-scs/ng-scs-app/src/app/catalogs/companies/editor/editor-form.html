@@ -1,4 +1,4 @@
-<form novalidate (ngSubmit)="save(fgClient.value, fgClient.valid)" [formGroup]="fgClient">
+<form novalidate (ngSubmit)="save(fgClient.value)" [formGroup]="fgClient">
     <div class="form-group">
         <label for="companyName">Razón Social</label>
         <input formControlName="name" type="text" class="form-control" name="companyName" placeholder="Razón social">
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="margin-20">
-        <button class="btn btn-default btn-with-icon" (click)="addAddress()"><i class="ion-location"></i> Agregar Dirección</button>
+        <button type="button" class="btn btn-info btn-with-icon" (click)="addAddress()"><i class="ion-location"></i> Agregar Dirección</button>
     </div>
     <div class="row" formArrayName="addresses">
         <div *ngFor="let address of fgClient.controls.addresses.controls; let i=index" class="col-md-6">
@@ -84,13 +84,11 @@
         </div>
     </div><br />
     <div class="form-group">
-        <button type="submit" class="btn btn-success btn-with-icon"><i class="ion-android-checkmark-circle"></i> Guardar</button>
-    </div>
-    <div class="clearfix"></div>
-
-    <div class="margin-20">
-        <div>myForm details:-</div>
-        <pre>Is myForm valid?: <br>{{fgClient.valid | json}}</pre>
-        <pre>form value: <br>{{fgClient.value | json}}</pre>
+        <button type="submit" class="btn btn-success btn-with-icon" [disabled]="!fgClient.valid">
+            <i class="ion-android-checkmark-circle"></i> Guardar
+        </button>
+        <button type="reset" class="btn btn-danger btn-with-icon" (click)="cancel()">
+            <i class="ion-android-checkmark-circle"></i> Cancelar
+        </button>
     </div>
 </form>

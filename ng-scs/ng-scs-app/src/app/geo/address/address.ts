@@ -1,14 +1,15 @@
-import Country from '../country/country';
+import { State } from '../state/state';
 
-export default class Address {
+export class Address {
     id: number;
     streetAddress: string;
     additionalAddressInfo: string;
     city: string;
-    addressState: string;
+    geoState: State;
     zip: string;
-    country: Country;
     landLine: string;
     contactName: string;
     addressType: string;
+    stateId: number;
+    countryId: number;
 }

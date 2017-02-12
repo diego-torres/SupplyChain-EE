@@ -54,6 +54,8 @@ import com.nowgroup.scsee.cat.unit.HibernateUnitRepository;
 import com.nowgroup.scsee.cat.unit.Unit;
 import com.nowgroup.scsee.geo.address.Address;
 import com.nowgroup.scsee.geo.country.Country;
+import com.nowgroup.scsee.geo.country.HibernateCountryRepository;
+import com.nowgroup.scsee.geo.state.GeoState;
 import com.nowgroup.scsee.inventory.Inventory;
 import com.nowgroup.scsee.packingList.HibernatePackingListRepository;
 import com.nowgroup.scsee.packingList.PackingList;
@@ -67,9 +69,10 @@ import com.nowgroup.scsee.transit.Transit;
 @EntityScan(basePackageClasses = { AssessmentMethod.class, BundleType.class, Company.class, Currency.class,
 		CustomsRegime.class, Incoterm.class, Location.class, Part.class, PartEquiv.class, Storage.class, Tariff.class,
 		TrafficType.class, TransportationMode.class, Unit.class, UnLabel.class, Inventory.class, Address.class,
-		Country.class, Transit.class, PackingList.class })
+		Country.class, Transit.class, PackingList.class, GeoState.class })
 @ComponentScan(basePackageClasses = { HibernateCompanyRepository.class, HibernateLocationRepository.class,
-		HibernateStorageRepository.class, HibernateUnitRepository.class, HibernatePackingListRepository.class })
+		HibernateStorageRepository.class, HibernateUnitRepository.class, HibernatePackingListRepository.class,
+		HibernateCountryRepository.class })
 public class PersistenceConfig {
 	@Value("${spring.datasource.driver-class-name}")
 	private String dbDriver;

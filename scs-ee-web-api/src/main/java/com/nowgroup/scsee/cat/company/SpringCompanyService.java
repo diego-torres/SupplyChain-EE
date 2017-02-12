@@ -31,11 +31,11 @@ import com.nowgroup.scsee.service.BaseService;
 /**
  * 
  * @author https://github.com/diego-torres
- *
+ * 		
  */
 @Service
-public class SpringCompanyService extends BaseService<Company, Integer> implements ICompanyService {
-
+public class SpringCompanyService extends BaseService<Company, Integer>implements ICompanyService {
+	
 	/**
 	 * @param repository
 	 */
@@ -43,5 +43,5 @@ public class SpringCompanyService extends BaseService<Company, Integer> implemen
 	public SpringCompanyService(ICompanyRepository repository) {
 		super(repository);
 	}
-
+	
 }

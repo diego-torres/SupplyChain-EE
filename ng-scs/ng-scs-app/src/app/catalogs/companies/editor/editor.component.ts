@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { Company } from '../shared/company';
+import { Address } from '../../../geo/address/address';
 import { CompanyService } from '../shared/company.service';
 
 @Component({
@@ -28,57 +29,93 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
             this.id = +params['id'];
         });
 
-        /*
-        (<FormControl>this.fgClient.controls['name']).setValue('Nowgroup', { onlySelf: true });
-        */
-
-        this.fgClient = new FormGroup({
-            name: new FormControl('', [
-                <any>Validators.required,
-                <any>Validators.minLength(5),
-                <any>Validators.maxLength(150)]),
-            taxId: new FormControl('', [
-                <any>Validators.minLength(9),
-                <any>Validators.maxLength(30)]),
-            email: new FormControl('', [
-                <any>Validators.required,
-                <any>Validators.minLength(5),
-                <any>Validators.maxLength(150)]),
-            buyer: new FormControl(false),
-            seller: new FormControl(false),
-            sender: new FormControl(false),
-            receiver: new FormControl(false),
-            freighter: new FormControl(false),
-            trader: new FormControl(false),
-            billable: new FormControl(false),
-            addresses: this._fb.array([])
-        });
+        if (this.id === 0) {
+            this.initCompany();
+        } else {
+            let company: Company = this.companyService.getCompanyById(this.id);
+            this.initCompany(company);
+        }
     }
 
-    initAddress() {
-        return this._fb.group({
-            addressType: ['', Validators.required],
-            street: ['', Validators.required],
-            additionalInfo: [''],
-            country: ['', Validators.required],
-            city: ['', Validators.required],
-            state: ['', Validators.required],
-            zip: ['', Validators.required],
-            landLine: [''],
-            contactName: ['']
-        });
+    initCompany(company?: Company) {
+        if (company){
+            // with values
+            this.fgClient = new FormGroup({
+                name: new FormControl(company.name, [
+                    <any>Validators.required,
+                    <any>Validators.minLength(5),
+                    <any>Validators.maxLength(150)]),
+                taxId: new FormControl(company.taxId),
+                email: new FormControl(company.email),
+                buyer: new FormControl(company.buyer),
+                seller: new FormControl(company.seller),
+                sender: new FormControl(company.sender),
+                receiver: new FormControl(company.receiver),
+                freighter: new FormControl(company.freighter),
+                trader: new FormControl(company.trader),
+                billable: new FormControl(company.billable),
+                addresses: this._fb.array([])
+            });
+            company.addresses.forEach(address => { this.addAddress(address); });
+        } else {
+            // empty
+            this.fgClient = new FormGroup({
+                name: new FormControl('', [
+                    <any>Validators.required,
+                    <any>Validators.minLength(5),
+                    <any>Validators.maxLength(150)]),
+                taxId: new FormControl(''),
+                email: new FormControl(''),
+                buyer: new FormControl(false),
+                seller: new FormControl(false),
+                sender: new FormControl(false),
+                receiver: new FormControl(false),
+                freighter: new FormControl(false),
+                trader: new FormControl(false),
+                billable: new FormControl(false),
+                addresses: this._fb.array([])
+            });
+        }
     }
 
-    addAddress() {
+    initAddress(address?: Address): FormGroup {
+        console.log('Adding address control', address);
+        if (address) {
+            return this._fb.group({
+                addressType: [address.addressType],
+                streetAddress: [address.streetAddress],
+                additionalAddressInfo: [address.additionalAddressInfo],
+                city: [address.city],
+                zip: [address.zip],
+                landLine: [address.landLine],
+                contactName: [address.contactName],
+                countryId: [address.geoState && address.geoState.country ? address.geoState.country.id : 0 ],
+                stateId: [address.geoState ? address.geoState.id : 0]
+            });
+        } else {
+           return this._fb.group({
+                addressType: [''],
+                streetAddress: [''],
+                additionalAddressInfo: [''],
+                city: [''],
+                zip: [''],
+                landLine: [''],
+                contactName: [''],
+                countryId: [''],
+                stateId: ['']
+            });
+        }
+    }
+
+    addAddress(address?: Address) {
         const control = <FormArray> this.fgClient.controls['addresses'];
-        const addrCtrl = this.initAddress();
+        const addrCtrl = this.initAddress(address);
 
         control.push(addrCtrl);
     }
 
     removeAddress(i: number){
         const control = <FormArray>this.fgClient.controls['addresses'];
-        console.log('removing: ' + i);
         control.removeAt(i);
     }
 
@@ -86,66 +123,19 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
         this.sub.unsubscribe();
     }
 
-    save(model: Company, isValid: boolean) {
-        console.log(model, isValid);
-        if (isValid) {
-            let clone: Company;
-            clone.name = model.name;
-            clone.taxId = model.taxId;
-            clone.email = model.email;
+    save(model: any) {
+        let company: Company = new Company(model);
+        company.id = this.id;
 
-            let _iRole: number = 0;
-            if (model.buyer){
-                if (_iRole === 0)
-                    _iRole = 2;
-            }
+        if (company.id === 0)
+            this.companyService.addCompany(company);
+        else
+            this.companyService.updateCompanyById(company.id, company);
 
-            if (model.seller) {
-                if (_iRole > 0)
-                    _iRole = _iRole * 3;
-                else
-                    _iRole = 3;
-            }
-
-            if (model.sender) {
-                if (_iRole > 0)
-                    _iRole = _iRole * 5;
-                else
-                    _iRole = 5;
-            }
-
-            if (model.receiver) {
-                if (_iRole > 0)
-                    _iRole = _iRole * 7;
-                else
-                    _iRole = 7;
-            }
-
-            if (model.freighter) {
-                if (_iRole > 0)
-                    _iRole = _iRole * 11;
-                else
-                    _iRole = 11;
-            }
-
-            if (model.trader) {
-                if (_iRole > 0)
-                    _iRole = _iRole * 13;
-                else
-                    _iRole = 13;
-            }
-
-            if (model.billable) {
-                if (_iRole > 0)
-                    _iRole = _iRole * 17;
-                else
-                    _iRole = 17;
-            }
-            clone.companyRole = _iRole;
-
-            companyService.addCompany(clone);
-            this.router.navigate('/catalogs/companies');
-        }
+        this.router.navigate(['/catalogs/companies']);
     }
 
+    cancel() {
+        this.router.navigate(['/catalogs/companies']);
+    }
 }

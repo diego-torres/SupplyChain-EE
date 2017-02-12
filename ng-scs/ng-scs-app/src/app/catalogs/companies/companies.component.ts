@@ -36,28 +36,20 @@ export class Companies {
                 title: 'ID',
                 type: 'number'
             },
-            companyName: {
+            name: {
                 title: 'Razón Social',
                 type: 'string'
             },
-            companyRoles: {
-                title: 'Roles de uso',
-                type: 'string'
-            },
-            companyTaxId: {
+            taxId: {
                 title: 'RFC',
                 type: 'string'
             },
-            companyCountry: {
-                title: 'País',
+            email: {
+                title: 'email',
                 type: 'string'
             },
-            companyAddressCity: {
-                title: 'Ciudad',
-                type: 'string'
-            },
-            companyAddressState: {
-                title: 'Estado',
+            roles_ES: {
+                title: 'Uso de la compañia',
                 type: 'string'
             }
         }
@@ -71,5 +63,10 @@ export class Companies {
 
     onCreate(event): void {
         this.router.navigate(['/catalogs/companies/editor', 0]);
+    }
+
+    onEdit(event): void{
+        let id: number = event.data.id;
+        this.router.navigate(['/catalogs/companies/editor', id]);
     }
 }

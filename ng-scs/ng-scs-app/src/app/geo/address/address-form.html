@@ -1,23 +1,32 @@
 <form [formGroup]="addressForm">
     <div class="form-group">
         <label for="addressType">Uso de dirección</label>
-        <input formControlName="addressType" type="text" class="form-control" id="addressType" placeholder="Uso de la dirección">
+        <select formControlName="addressType" class="form-control" id="addressType">
+            <option value="MAILING" selected>Paqueteria / Correo</option>
+            <option value="LEGAL">Facturación / Legal</option>
+        </select>
     </div>
     <div class="form-group">
         <label for="streetAddress">Calle y número</label>
-        <input formControlName="street" type="text" class="form-control" id="streetAddress" placeholder="Calle y número">
+        <input formControlName="streetAddress" type="text" class="form-control" id="streetAddress" placeholder="Calle y número">
     </div>
     <div class="form-group">
         <label for="addressAdditionalInfo">Colonia o información adicional</label>
-        <input formControlName="additionalInfo" type="text" class="form-control" id="addressAdditionalInfo" placeholder="Colonia o información adicional">
+        <input formControlName="additionalAddressInfo" type="text" class="form-control" id="addressAdditionalInfo" placeholder="Colonia o información adicional">
     </div>
     <div class="form-group">
         <label for="country">País</label>
-        <input formControlName="country" type="text" class="form-control" id="country" placeholder="País">
+        <select formControlName="countryId" (ngModelChange)="onChangeCountry($event)" class="form-control" name="country">
+            <option value=0>Seleccione país</option>
+            <option *ngFor="let countryOption of countries" value="{{countryOption.id}}">{{countryOption.name}}</option>
+        </select>
         <label for="city">Ciudad</label>
         <input formControlName="city" type="text" class="form-control" id="city" placeholder="Ciudad">
-        <label for="addressState">Estado</label>
-        <input formControlName="state" type="text" class="form-control" id="addressState" placeholder="Estado">
+        <label for="geoState">Estado</label>
+        <select formControlName="stateId" name="geoState" class="form-control">
+            <option value=0>Seleccione estado</option>
+            <option *ngFor="let stateOption of states" value="{{stateOption.id}}">{{stateOption.name}}</option>
+        </select>
         <label for="zip">C.P.</label>
         <input formControlName="zip" type="text" class="form-control" id="<zip>" placeholder="C.P.">
     </div>

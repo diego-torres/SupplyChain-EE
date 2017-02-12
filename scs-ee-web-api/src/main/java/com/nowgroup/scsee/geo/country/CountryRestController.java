@@ -21,14 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.cat.company;
+package com.nowgroup.scsee.geo.country;
 
-import com.nowgroup.scsee.repository.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nowgroup.scsee.controller.rest.ReadOnlyRestController;
 
 /**
  * @author https://github.com/diego-torres
- *		
+ * 		
  */
-public interface ICompanyRepository extends Repository<Company, Integer> {
-
+@RestController
+@RequestMapping(value = "rest/country")
+public class CountryRestController extends ReadOnlyRestController<Country, Integer> {
+	
+	/**
+	 * @param service
+	 */
+	@Autowired
+	public CountryRestController(ICountryService service) {
+		super(service);
+	}
+	
 }

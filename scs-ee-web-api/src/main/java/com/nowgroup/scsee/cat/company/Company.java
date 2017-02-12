@@ -30,6 +30,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -48,7 +49,7 @@ import com.nowgroup.scsee.model.BaseNamableModel;
 @Table(name = "cat_companies")
 public class Company extends BaseNamableModel {
 	private static final long	serialVersionUID	= 1L;
-	private Integer				companyRole			= 0;
+	private String				roles;
 	private String				taxId;
 	private String				email;
 	private Set<Address>		addresses			= new HashSet<>();
@@ -70,31 +71,10 @@ public class Company extends BaseNamableModel {
 	}
 	
 	/**
-	 * Buyer = 2, Seller = 3, Sender = 5, Receiver = 7, Freighter = 11, Trade
-	 * Agency = 13, Billable = 17 UNKNOWN = 0 If a company is buyer and
-	 * freighter then 2 * 11 = 22, then the role is 22. When calculating the
-	 * role, if [role]%2 = 0 then the company is a buyer.
-	 * 
-	 * @return the companyRole
-	 */
-	@Column(name = "company_role")
-	public Integer getCompanyRole() {
-		return companyRole;
-	}
-	
-	/**
-	 * @param companyRole
-	 *            the companyRole to set
-	 */
-	public void setCompanyRole(Integer companyRole) {
-		this.companyRole = companyRole;
-	}
-	
-	/**
 	 * @return the addresses
 	 */
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinTable(name = "loc_company_address")
+	@JoinTable(name = "loc_company_address", foreignKey = @ForeignKey(name = "FK_GEO_ADDRESS_CAT_COMPANY") )
 	public Set<Address> getAddresses() {
 		return addresses;
 	}
@@ -110,6 +90,7 @@ public class Company extends BaseNamableModel {
 	/**
 	 * @return the taxId
 	 */
+	@Column(length=30)
 	public String getTaxId() {
 		return taxId;
 	}
@@ -125,6 +106,7 @@ public class Company extends BaseNamableModel {
 	/**
 	 * @return the email
 	 */
+	@Column(length=150)
 	public String getEmail() {
 		return email;
 	}
@@ -135,5 +117,20 @@ public class Company extends BaseNamableModel {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	@Column(length=50)
+	public String getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 }

@@ -1,4 +1,4 @@
-export default class Country {
+export class Country {
     id: number;
     name: string;
     countryCode: string;

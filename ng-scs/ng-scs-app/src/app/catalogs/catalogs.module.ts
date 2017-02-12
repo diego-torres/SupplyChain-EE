@@ -14,6 +14,8 @@ import { Parts } from './parts';
 import { AddressComponent } from '../geo/address/address.component';
 
 import { CompanyService } from './companies/shared/company.service';
+import { CountryService } from '../geo/country/country.service';
+import { StateService } from '../geo/state/state.service';
 
 @NgModule({
   imports: [
@@ -33,7 +35,9 @@ import { CompanyService } from './companies/shared/company.service';
     Parts
   ],
   providers: [
-    CompanyService
+    CompanyService,
+    CountryService,
+    StateService
   ]
 })
 export class CatalogsModule {

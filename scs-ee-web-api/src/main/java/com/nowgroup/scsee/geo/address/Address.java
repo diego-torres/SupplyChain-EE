@@ -26,11 +26,12 @@ package com.nowgroup.scsee.geo.address;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.nowgroup.scsee.geo.country.Country;
+import com.nowgroup.scsee.geo.state.GeoState;
 import com.nowgroup.scsee.model.BaseGenericModel;
 
 /**
@@ -38,15 +39,14 @@ import com.nowgroup.scsee.model.BaseGenericModel;
  * 		
  */
 @Entity
-@Table(name = "loc_address")
+@Table(name = "geo_address")
 public class Address extends BaseGenericModel {
 	private static final long	serialVersionUID	= 1L;
 	private String				streetAddress;
 	private String				additionalAddressInfo;
 	private String				city;
-	private String				addressState;
+	private GeoState			geoState;
 	private String				zip;
-	private Country				country;
 	private String				landLine;
 	private String				contactName;
 	private AddressType			addressType;
@@ -106,19 +106,20 @@ public class Address extends BaseGenericModel {
 	}
 	
 	/**
-	 * @return the addressState
+	 * @return the geoState
 	 */
-	@Column(length = 80)
-	public String getAddressState() {
-		return addressState;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "geo_state_id", foreignKey=@ForeignKey(name="FK_GEO_STATE_GEO_ADDRESS"))
+	public GeoState getGeoState() {
+		return geoState;
 	}
 	
 	/**
-	 * @param addressState
-	 *            the addressState to set
+	 * @param geoState
+	 *            the geoState to set
 	 */
-	public void setAddressState(String addressState) {
-		this.addressState = addressState;
+	public void setGeoState(GeoState geoState) {
+		this.geoState = geoState;
 	}
 	
 	/**
@@ -187,23 +188,6 @@ public class Address extends BaseGenericModel {
 		} catch (Exception e) {
 			this.addressType = AddressType.UNKNOWN;
 		}
-	}
-	
-	/**
-	 * @return the country
-	 */
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "country_id")
-	public Country getCountry() {
-		return country;
-	}
-	
-	/**
-	 * @param country
-	 *            the country to set
-	 */
-	public void setCountry(Country country) {
-		this.country = country;
 	}
 	
 	public static enum AddressType {
