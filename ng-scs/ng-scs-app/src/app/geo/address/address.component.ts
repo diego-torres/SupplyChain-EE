@@ -14,34 +14,32 @@ import { Address } from './address';
     templateUrl: './address-form.html'
 })
 export class AddressComponent {
-    @Input('group')
-    public addressForm: FormGroup;
+  @Input('group')
+  public addressForm: FormGroup;
 
-    public countries: Country[] = [];
-    public states: State[] = [];
-    public selectedCountry: Country;
+  public countries: Country[] = [];
+  public states: State[] = [];
+  public selectedCountry: Country;
 
-    constructor(private countryService: CountryService, private stateService: StateService) { }
+  constructor(private countryService: CountryService, private stateService: StateService) { }
 
-    ngOnInit() {
-        this.countryService.getAllCountries().then(
-            data => {
-                this.countries = data;
-                if (this.addressForm && (<FormControl>this.addressForm.controls['countryId']).value > 0) {
-                    this.stateService.getStatesByCountryId(
-                        (<FormControl>this.addressForm.controls['countryId']).value)
-                        .then(states => { this.states = states; });
-                }
-            });
-    }
+  ngOnInit() {
+    this.countryService.getAllCountries()
+    .subscribe(
+      countries => {
+        this.countries = countries;
+        if (this.addressForm && (<FormControl>this.addressForm.controls['countryId']).value > 0) {
+          this.stateService.getStatesByCountryId(
+              (<FormControl>this.addressForm.controls['countryId']).value)
+              .then(states => { this.states = states; });
+        }
+      },
+      err => {console.log(err);}
+    );
+  }
 
-    onChangeCountry(selectedCountryId) {
-        (<FormControl>this.addressForm.controls['stateId']).disable();
-        this.stateService.getStatesByCountryId(selectedCountryId)
-        .then(states => {
-            this.states = states;
-            (<FormControl>this.addressForm.controls['stateId']).enable();
-            (<FormControl>this.addressForm.controls['stateId']).setValue(0, { onlySelf: true });
-        });
-    }
+  onChangeCountry(selectedCountryId) {
+    this.states = this.countries.filter(country => country.id == selectedCountryId).pop().states;
+    (<FormControl>this.addressForm.controls['stateId']).setValue(0, { onlySelf: true });
+  }
 }

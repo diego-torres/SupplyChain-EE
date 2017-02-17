@@ -21,28 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nowgroup.scsee.geo.country;
+package com.nowgroup.scsee.geo.state;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.nowgroup.scsee.controller.rest.ReadOnlyRestController;
+import com.nowgroup.scsee.repository.ReadOnlyRepository;
 
 /**
  * @author https://github.com/diego-torres
  *
  */
-@RestController
-@RequestMapping(value = "rest/geo/country")
-public class CountryRestController extends ReadOnlyRestController<Country, Integer> {
-
-	/**
-	 * @param service
-	 */
-	@Autowired
-	public CountryRestController(ICountryService service) {
-		super(service);
-	}
+public interface IStateRepository extends ReadOnlyRepository<GeoState, Integer> {
 
 }

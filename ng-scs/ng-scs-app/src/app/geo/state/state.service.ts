@@ -9,13 +9,11 @@ export class StateService {
         {
             id: 1,
             name: 'Texas',
-            conventionalAbreviation: 'TX',
-            country: {id: 2, name: 'United States', countryCode: 'USA'}
+            conventionalAbreviation: 'TX'
         }, {
             id: 2,
             name: 'New Mexico',
-            conventionalAbreviation: 'NM',
-            country: {id: 2, name: 'United States', countryCode: 'USA'}
+            conventionalAbreviation: 'NM'
         }];
 
     constructor(){}
