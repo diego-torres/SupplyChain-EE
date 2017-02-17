@@ -12,4 +12,8 @@ export class Address {
     addressType: string;
     stateId: number;
     countryId: number;
+    constructor (values: Object = {}) {
+        console.log('Address constructor value assignment from', values);
+        Object.assign(this, values);
+    }
 }

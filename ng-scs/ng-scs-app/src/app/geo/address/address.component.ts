@@ -7,6 +7,8 @@ import { CountryService } from '../country/country.service';
 import { State } from '../state/state';
 import { StateService } from '../state/state.service';
 
+import { Address } from './address';
+
 @Component({
     selector: 'address',
     templateUrl: './address-form.html'
@@ -22,14 +24,24 @@ export class AddressComponent {
     constructor(private countryService: CountryService, private stateService: StateService) { }
 
     ngOnInit() {
-        // TODO: Load country/state values for existing address.
-        this.countryService.getAllCountries().then(data => { this.countries = data; });
+        this.countryService.getAllCountries().then(
+            data => {
+                this.countries = data;
+                if (this.addressForm && (<FormControl>this.addressForm.controls['countryId']).value > 0) {
+                    this.stateService.getStatesByCountryId(
+                        (<FormControl>this.addressForm.controls['countryId']).value)
+                        .then(states => { this.states = states; });
+                }
+            });
     }
 
     onChangeCountry(selectedCountryId) {
-        // TODO: Lock and show "loading" graphics for state dropdown, 
-        // TODO: unlock and hide loading after service data transfer.
-        this.stateService.getStatesByCountryId(selectedCountryId).then(states => { this.states = states; });
-        (<FormControl>this.addressForm.controls['stateId']).setValue(0, { onlySelf: true });
+        (<FormControl>this.addressForm.controls['stateId']).disable();
+        this.stateService.getStatesByCountryId(selectedCountryId)
+        .then(states => {
+            this.states = states;
+            (<FormControl>this.addressForm.controls['stateId']).enable();
+            (<FormControl>this.addressForm.controls['stateId']).setValue(0, { onlySelf: true });
+        });
     }
 }

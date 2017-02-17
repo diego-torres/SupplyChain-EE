@@ -29,6 +29,6 @@ export class StateService {
 
     // Simulate GET /countries/:id
     getStateById(id: number): State {
-        return this.states.filter(state => state.id === id).pop();
+        return this.states[1];
     }
 }

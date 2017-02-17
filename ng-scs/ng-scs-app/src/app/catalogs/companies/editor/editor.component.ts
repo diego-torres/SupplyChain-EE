@@ -89,8 +89,8 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
                 zip: [address.zip],
                 landLine: [address.landLine],
                 contactName: [address.contactName],
-                countryId: [address.geoState && address.geoState.country ? address.geoState.country.id : 0 ],
-                stateId: [address.geoState ? address.geoState.id : 0]
+                countryId: [address.countryId],
+                stateId: [address.stateId]
             });
         } else {
            return this._fb.group({
