@@ -41,7 +41,6 @@ public class AssessmentMethod extends BaseNamableModel {
 	 * 
 	 */
 	public AssessmentMethod() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -49,7 +48,6 @@ public class AssessmentMethod extends BaseNamableModel {
 	 */
 	public AssessmentMethod(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -58,7 +56,6 @@ public class AssessmentMethod extends BaseNamableModel {
 	 */
 	public AssessmentMethod(Integer id, String name) {
 		super(id, name);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

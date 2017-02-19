@@ -36,9 +36,7 @@ public class AuthenticationModel implements Serializable {
 	/**
 	 * 
 	 */
-	public AuthenticationModel() {
-		// TODO Auto-generated constructor stub
-	}
+	public AuthenticationModel() {	}
 	
 	/**
 	 * @param token

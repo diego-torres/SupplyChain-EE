@@ -43,6 +43,7 @@ import com.nowgroup.scsee.cat.incoterm.Incoterm;
 import com.nowgroup.scsee.cat.location.HibernateLocationRepository;
 import com.nowgroup.scsee.cat.location.Location;
 import com.nowgroup.scsee.cat.part.Part;
+import com.nowgroup.scsee.cat.part.HibernatePartRepository;
 import com.nowgroup.scsee.cat.partEquiv.PartEquiv;
 import com.nowgroup.scsee.cat.storage.HibernateStorageRepository;
 import com.nowgroup.scsee.cat.storage.Storage;
@@ -73,7 +74,7 @@ import com.nowgroup.scsee.transit.Transit;
 		Country.class, Transit.class, PackingList.class, GeoState.class })
 @ComponentScan(basePackageClasses = { HibernateCompanyRepository.class, HibernateLocationRepository.class,
 		HibernateStorageRepository.class, HibernateUnitRepository.class, HibernatePackingListRepository.class,
-		HibernateCountryRepository.class, HibernateStateRepository.class })
+		HibernateCountryRepository.class, HibernateStateRepository.class, HibernatePartRepository.class })
 public class PersistenceConfig {
 	@Value("${spring.datasource.driver-class-name}")
 	private String dbDriver;

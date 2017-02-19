@@ -46,7 +46,6 @@ public class Currency extends BaseNamableModel {
 	 * 
 	 */
 	public Currency() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -54,7 +53,6 @@ public class Currency extends BaseNamableModel {
 	 */
 	public Currency(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -63,7 +61,6 @@ public class Currency extends BaseNamableModel {
 	 */
 	public Currency(Integer id, String name) {
 		super(id, name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

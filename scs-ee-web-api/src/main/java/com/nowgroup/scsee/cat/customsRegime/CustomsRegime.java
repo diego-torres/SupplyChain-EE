@@ -45,7 +45,6 @@ public class CustomsRegime extends BaseNamableModel {
 	 * 
 	 */
 	public CustomsRegime() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -53,7 +52,6 @@ public class CustomsRegime extends BaseNamableModel {
 	 */
 	public CustomsRegime(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -62,7 +60,6 @@ public class CustomsRegime extends BaseNamableModel {
 	 */
 	public CustomsRegime(Integer id, String name) {
 		super(id, name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

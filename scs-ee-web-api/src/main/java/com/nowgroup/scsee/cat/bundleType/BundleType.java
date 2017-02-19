@@ -41,7 +41,6 @@ public class BundleType extends BaseNamableModel {
 	 * 
 	 */
 	public BundleType() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -49,7 +48,6 @@ public class BundleType extends BaseNamableModel {
 	 */
 	public BundleType(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -58,7 +56,6 @@ public class BundleType extends BaseNamableModel {
 	 */
 	public BundleType(Integer id, String name) {
 		super(id, name);
-		// TODO Auto-generated constructor stub
 	}
 	
 }

@@ -162,5 +162,42 @@ public class PartEquiv implements Model<PartEquivKey> {
 		public void setPartB(Part partB) {
 			this.partB = partB;
 		}
+
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode()
+		 */
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((partA == null) ? 0 : partA.hashCode());
+			result = prime * result + ((partB == null) ? 0 : partB.hashCode());
+			return result;
+		}
+
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			PartEquivKey other = (PartEquivKey) obj;
+			if (partA == null) {
+				if (other.partA != null)
+					return false;
+			} else if (!partA.equals(other.partA))
+				return false;
+			if (partB == null) {
+				if (other.partB != null)
+					return false;
+			} else if (!partB.equals(other.partB))
+				return false;
+			return true;
+		}
 	}
 }
