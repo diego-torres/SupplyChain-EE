@@ -24,10 +24,13 @@
 package com.nowgroup.scsee.geo.state;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nowgroup.scsee.controller.rest.ReadOnlyRestController;
+import com.nowgroup.scsee.controller.rest.dto.GlobalRestResponseDto;
 
 /**
  * @author https://github.com/diego-torres
@@ -36,6 +39,7 @@ import com.nowgroup.scsee.controller.rest.ReadOnlyRestController;
 @RestController
 @RequestMapping(value = "rest/geo/state")
 public class GeoStateRestController extends ReadOnlyRestController<GeoState, Integer> {
+	private IStateService localService;
 
 	/**
 	 * @param service
@@ -43,6 +47,18 @@ public class GeoStateRestController extends ReadOnlyRestController<GeoState, Int
 	@Autowired
 	public GeoStateRestController(IStateService service) {
 		super(service);
+		localService = service;
+	}
+
+	/**
+	 * Get all states for a given country Id
+	 * 
+	 * @param countryId
+	 * @return
+	 */
+	@RequestMapping(value = "country/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public GlobalRestResponseDto<GeoState> getByCountry(@PathVariable int id) {
+		return new GlobalRestResponseDto<GeoState>(localService.getStatesByCountryId(id));
 	}
 
 }

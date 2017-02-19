@@ -32,9 +32,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import com.nowgroup.scsee.geo.country.Country;
 import com.nowgroup.scsee.model.BaseNamableModel;
 
@@ -45,7 +42,6 @@ import com.nowgroup.scsee.model.BaseNamableModel;
 @Entity
 @Table(name = "geo_state", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "country_id", "conventional_abreviation" }, name = "ux_country_state") })
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class GeoState extends BaseNamableModel {
 	private static final long serialVersionUID = 1L;
 
@@ -55,14 +51,14 @@ public class GeoState extends BaseNamableModel {
 	/**
 	 *
 	 */
-	public GeoState() {	}
+	public GeoState() {
+	}
 
 	/**
 	 * @return the country
 	 */
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "country_id", foreignKey = @ForeignKey(name = "FK_GEO_COUNTRY_GEO_STATE"))
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "country_id", foreignKey = @ForeignKey(name = "FK_GEO_COUNTRY_GEO_STATE"), updatable = false, insertable = false)
 	public Country getCountry() {
 		return country;
 	}
@@ -89,6 +85,17 @@ public class GeoState extends BaseNamableModel {
 	 */
 	public void setConventionalAbreviation(String conventionalAbreviation) {
 		this.conventionalAbreviation = conventionalAbreviation;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GeoState [country=" + country + ", conventionalAbreviation=" + conventionalAbreviation + "] "
+				+ super.toString();
 	}
 
 }

@@ -39,14 +39,14 @@ import com.nowgroup.scsee.service.SupplyChainService;
 /**
  * 
  * @author https://github.com/diego-torres
- * 		
+ * 
  * @param <T>
  * @param <U>
  */
 public abstract class BaseRestController<T extends Model<U>, U extends Serializable>
-										extends ReadOnlyRestController<T, U> {
+		extends ReadOnlyRestController<T, U> {
 	private SupplyChainService<T, U> service;
-	
+
 	/**
 	 * 
 	 * @param service
@@ -55,14 +55,13 @@ public abstract class BaseRestController<T extends Model<U>, U extends Serializa
 		super(service);
 		this.service = service;
 	}
-	
+
 	/**
 	 * 
 	 * @param entity
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json; charset=UTF-8",
-					consumes = "application/json; charset=UTF-8")
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json; charset=UTF-8", consumes = "application/json; charset=UTF-8")
 	public GlobalRestResponseDto<T> add(@RequestBody(required = true) T entity) {
 		GlobalRestResponseDto<T> response = new GlobalRestResponseDto<>(
 				"Unable to persist entity in database: " + entity);
@@ -76,17 +75,16 @@ public abstract class BaseRestController<T extends Model<U>, U extends Serializa
 		} catch (Exception e) {
 			response = new GlobalRestResponseDto<>(e.getMessage());
 		}
-		
+
 		return response;
 	}
-	
+
 	/**
 	 * 
 	 * @param entity
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.PUT, produces = "application/json; charset=UTF-8",
-					consumes = "application/json; charset=UTF-8")
+	@RequestMapping(method = RequestMethod.PUT, produces = "application/json; charset=UTF-8", consumes = "application/json; charset=UTF-8")
 	public GlobalRestResponseDto<T> update(@RequestBody(required = true) T entity) {
 		GlobalRestResponseDto<T> response = new GlobalRestResponseDto<>(
 				"Unable to merge entity in database: " + entity);
@@ -100,10 +98,10 @@ public abstract class BaseRestController<T extends Model<U>, U extends Serializa
 		} catch (Exception e) {
 			response = new GlobalRestResponseDto<>(e.getMessage());
 		}
-		
+
 		return response;
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -123,7 +121,7 @@ public abstract class BaseRestController<T extends Model<U>, U extends Serializa
 		} catch (Exception e) {
 			response = new GlobalRestResponseDto<>(e.getMessage());
 		}
-		
+
 		return response;
 	}
 }

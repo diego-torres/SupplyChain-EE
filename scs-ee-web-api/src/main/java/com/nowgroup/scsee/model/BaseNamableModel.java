@@ -33,19 +33,19 @@ import org.springframework.beans.factory.annotation.Required;
  * implementation to accomplish that.
  * 
  * @author https://github.com/diego-torres
- * 		
+ * 
  */
 @MappedSuperclass
 public abstract class BaseNamableModel extends BaseGenericModel {
-	private static final long	serialVersionUID	= 1L;
-	private String				name;
-	
+	private static final long serialVersionUID = 1L;
+	private String name;
+
 	/**
 	 * 
 	 */
 	public BaseNamableModel() {
 	}
-	
+
 	/**
 	 * Create a BaseNamableModel using a name
 	 * 
@@ -54,7 +54,7 @@ public abstract class BaseNamableModel extends BaseGenericModel {
 	public BaseNamableModel(String name) {
 		setName(name);
 	}
-	
+
 	/**
 	 * Option to build a BaseNamable from id and name.
 	 * 
@@ -65,7 +65,7 @@ public abstract class BaseNamableModel extends BaseGenericModel {
 		setId(id);
 		setName(name);
 	}
-	
+
 	/**
 	 * @return the name
 	 */
@@ -74,12 +74,22 @@ public abstract class BaseNamableModel extends BaseGenericModel {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * @param name
 	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "BaseNamableModel [name=" + name + "]" + super.toString();
 	}
 }

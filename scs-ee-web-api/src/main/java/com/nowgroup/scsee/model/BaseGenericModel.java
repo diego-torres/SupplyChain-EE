@@ -32,13 +32,13 @@ import javax.persistence.MappedSuperclass;
  * Most entities will have an integer id based model.
  * 
  * @author https://github.com/diego-torres
- * 		
+ * 
  */
 @MappedSuperclass
 public abstract class BaseGenericModel implements Model<Integer> {
-	private static final long	serialVersionUID	= 1L;
-	private Integer				id;
-	
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -50,7 +50,7 @@ public abstract class BaseGenericModel implements Model<Integer> {
 	public Integer getId() {
 		return id;
 	}
-	
+
 	/**
 	 * @param id
 	 *            the id to set
@@ -58,7 +58,7 @@ public abstract class BaseGenericModel implements Model<Integer> {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -71,7 +71,7 @@ public abstract class BaseGenericModel implements Model<Integer> {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -79,13 +79,27 @@ public abstract class BaseGenericModel implements Model<Integer> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof BaseGenericModel)) return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof BaseGenericModel))
+			return false;
 		BaseGenericModel other = (BaseGenericModel) obj;
 		if (id == null) {
-			if (other.id != null) return false;
-		} else if (!id.equals(other.id)) return false;
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "BasigGenericModel [id=" + id + "]";
+	}
+
 }

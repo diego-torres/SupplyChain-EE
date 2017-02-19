@@ -72,7 +72,7 @@ public abstract class HibernateRepository<T extends Model<U>, U extends Serializ
 	@Override
 	public void update(T entity) {
 		try {
-			getHibernateTemplate().update(entity);
+			getHibernateTemplate().merge(entity);
 			getHibernateTemplate().flush();
 		} catch (Exception e) {
 			throw e;

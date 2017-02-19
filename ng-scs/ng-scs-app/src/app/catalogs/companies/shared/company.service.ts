@@ -1,72 +1,79 @@
 import { Injectable } from '@angular/core';
-import { Company } from './company';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
+
+import { Company } from './company';
 import { Address } from '../../../geo/address/address';
-import { State } from '../../../geo/state/state';
-import { StateService } from '../../../geo/state/state.service';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CompanyService {
-    // Mock Id Generation
-    lastId: number = 0;
+  private companiesUrl = 'http://localhost:8080/rest/company';
 
-    // Mock placeholder for companies
-    companies: Company[] = [];
+  constructor(private http: Http){}
 
-    constructor(private stateService: StateService){}
+  // Simulate POST /companies
+  addCompany(company: Company): Observable<Company> {
+    let companyString = JSON.stringify(company);
+    if (company.rolesArray)
+      company.roles = company.rolesArray.join(', ');
 
-    // Simulate POST /companies
-    addCompany(company: Company): CompanyService {
-        if (!company.id){
-            company.id = ++this.lastId;
-        }
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
 
-        // fix addresses
-        company.addresses.forEach(address => { this.fixAddress(address); });
+    return this.http.post(this.companiesUrl, company, options)
+    .map((r: Response) => r.json())
+    .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
+  }
 
-        console.log('REST send (CREATE - POST): ', company);
-        this.companies.push(company);
-        return this;
-    }
+  deleteCompanyById(id: number): Observable<Company> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
 
-    // Simulate DELETE /companies/:id
-    deleteCompanyById(id: number): CompanyService {
-        this.companies = this.companies.filter(company => company.id !== id);
-        return this;
-    }
+    return this.http.delete(this.companiesUrl + '/' + id)
+    .map((r: Response) => r.json())
+    .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
+  }
 
-    // Simulate PUT /companies/:id
-    updateCompanyById(id: number, values: Object = {}): Company {
-        let company = this.getCompanyById(id);
-        if (!company){
-            return null;
-        }
-        Object.assign(company, values);
+  // Simulate PUT /companies/:id
+  updateCompanyById(id: number, values: Object = {}): Observable<Company> {
+    let company: Company = new Company(values);
 
-        // calculate geoState
-        // fix addresses
-        company.addresses.forEach(address => { this.fixAddress(address); });
+    if (company.rolesArray)
+      company.roles = company.rolesArray.join(', ');
 
-        console.log('REST send (UPDATE - PUT): ', company);
+    let companyString = JSON.stringify(company);
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(this.companiesUrl, company, options)
+    .map((r: Response) => r.json())
+    .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
+  }
+
+  // Simulate GET /companies
+  getAllCompanies(): Observable<Company[]> {
+    return this.http.get(this.companiesUrl)
+      .map(
+        (result: Response) => {
+          let companies: Company[] = result.json().data;
+          companies.forEach( c => { c.rolesArray = c.roles.split(', '); });
+          return companies;
+        })
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  // Simulate GET /companies/:id
+  getCompanyById(id: number): Observable<Company> {
+    return this.http.get(this.companiesUrl + '/' + id)
+      .map((result: Response) => {
+        let company: Company = result.json().data.pop();
+        company.rolesArray = company.roles.split(', ');
         return company;
-    }
-
-    // Simulate GET /companies
-    getAllCompanies(): Promise<Company[]> {
-        return new Promise((resolve, reject) => {
-            resolve(this.companies);
-        });
-    }
-
-    // Simulate GET /companies/:id
-    getCompanyById(id: number): Company {
-        return this.companies.filter(company => company.id === id).pop();
-    }
-
-    private fixAddress(address: Address) {
-        if (address.stateId && address.stateId > 0) {
-            let geoState = this.stateService.getStateById(address.stateId);
-            address.geoState = geoState;
-        }
-    }
+      })
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }

@@ -1,32 +1,29 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+
+import { Observable } from 'rxjs/Rx';
+
 import { State } from './state';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class StateService {
+  private statesUrl = 'http://localhost:8080/rest/geo/state';
+  constructor(private http: Http){}
 
-    // Mock placeholder for companies
-    states: State[] = [
-        {
-            id: 1,
-            name: 'Texas',
-            conventionalAbreviation: 'TX'
-        }, {
-            id: 2,
-            name: 'New Mexico',
-            conventionalAbreviation: 'NM'
-        }];
+  getStatesByCountryId(id: number): Observable<State[]> {
+    let urlById = this.statesUrl + '/country/' + id;
+    return this.http.get(urlById)
+    .map((r: Response) => r.json().data)
+    .catch((e: any) => Observable.throw(e.json().error || 'server error'));
+  }
 
-    constructor(){}
-
-    // Simulate GET /states
-    getStatesByCountryId(countryId: number): Promise<State[]> {
-        return new Promise((resolve, reject) => {
-            resolve(this.states);
-        });
-    }
-
-    // Simulate GET /countries/:id
-    getStateById(id: number): State {
-        return this.states[1];
-    }
+  getStateById(id: number): Observable<State> {
+    let urlById = this.statesUrl + '/' + id;
+    return this.http.get(urlById)
+    .map((r: Response) => r.json().data.pop())
+    .catch((e: any) => Observable.throw(e.json().error || 'server error'));
+  }
 }

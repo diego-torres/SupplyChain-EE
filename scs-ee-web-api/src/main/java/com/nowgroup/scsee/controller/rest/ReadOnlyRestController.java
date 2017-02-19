@@ -26,7 +26,8 @@ package com.nowgroup.scsee.controller.rest;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,16 +39,15 @@ import com.nowgroup.scsee.service.SupplyChainReadOnlyService;
 /**
  * 
  * @author https://github.com/diego-torres
- * 		
+ * 
  * @param <T>
  *            The Model Type
  * @param <U>
  *            The Model ID Type
  */
-@CrossOrigin(origins = "http://localhost:3000")
 public class ReadOnlyRestController<T extends Model<U>, U extends Serializable> {
 	private SupplyChainReadOnlyService<T, U> readOnlyService;
-	
+
 	/**
 	 * A ReadOnlyService instance is required for the Rest controller to work.
 	 * 
@@ -56,7 +56,7 @@ public class ReadOnlyRestController<T extends Model<U>, U extends Serializable> 
 	public ReadOnlyRestController(SupplyChainReadOnlyService<T, U> readOnlyService) {
 		this.readOnlyService = readOnlyService;
 	}
-	
+
 	/**
 	 * Get a single record by Id.
 	 * 
@@ -70,15 +70,17 @@ public class ReadOnlyRestController<T extends Model<U>, U extends Serializable> 
 				"Unable to obtain a single record by id: " + id);
 		try {
 			T entity = readOnlyService.getById(id);
-			if (entity == null) response = new GlobalRestResponseDto<>("Entity not found with id: " + id);
-			else response = new GlobalRestResponseDto<>(entity);
+			if (entity == null)
+				response = new GlobalRestResponseDto<>("Entity not found with id: " + id);
+			else
+				response = new GlobalRestResponseDto<>(entity);
 		} catch (Exception e) {
 			response = new GlobalRestResponseDto<>(e.getMessage());
 		}
-		
+
 		return response;
 	}
-	
+
 	/**
 	 * Get all records from database.
 	 * 
@@ -91,11 +93,12 @@ public class ReadOnlyRestController<T extends Model<U>, U extends Serializable> 
 			List<T> entities = readOnlyService.getAll();
 			if (entities == null || entities.isEmpty())
 				response = new GlobalRestResponseDto<>("no data found in database.");
-			else response = new GlobalRestResponseDto<>(entities);
+			else
+				response = new GlobalRestResponseDto<>(entities);
 		} catch (Exception e) {
 			response = new GlobalRestResponseDto<>(e.getMessage());
 		}
-		
+
 		return response;
 	}
 }

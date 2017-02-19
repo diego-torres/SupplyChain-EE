@@ -24,39 +24,37 @@
 package com.nowgroup.scsee.geo.address;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
 import com.nowgroup.scsee.geo.state.GeoState;
 import com.nowgroup.scsee.model.BaseGenericModel;
 
 /**
  * @author https://github.com/diego-torres
- * 		
+ * 
  */
-@Entity
-@Table(name = "geo_address")
+@MappedSuperclass
 public class Address extends BaseGenericModel {
-	private static final long	serialVersionUID	= 1L;
-	private String				streetAddress;
-	private String				additionalAddressInfo;
-	private String				city;
-	private GeoState			geoState;
-	private String				zip;
-	private String				landLine;
-	private String				contactName;
-	private AddressType			addressType;
-	
+	private static final long serialVersionUID = 1L;
+	private String streetAddress;
+	private String additionalAddressInfo;
+	private String city;
+	private GeoState geoState;
+	private String zip;
+	private String landLine;
+	private String contactName;
+	private String addressType;
+
 	/**
 	 * 
 	 */
 	public Address() {
 	}
-	
+
 	/**
 	 * @return the streetAddress
 	 */
@@ -64,7 +62,7 @@ public class Address extends BaseGenericModel {
 	public String getStreetAddress() {
 		return streetAddress;
 	}
-	
+
 	/**
 	 * @param streetAddress
 	 *            the streetAddress to set
@@ -72,7 +70,7 @@ public class Address extends BaseGenericModel {
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
 	}
-	
+
 	/**
 	 * @return the additionalAddressInfo
 	 */
@@ -80,7 +78,7 @@ public class Address extends BaseGenericModel {
 	public String getAdditionalAddressInfo() {
 		return additionalAddressInfo;
 	}
-	
+
 	/**
 	 * @param additionalAddressInfo
 	 *            the additionalAddressInfo to set
@@ -88,7 +86,7 @@ public class Address extends BaseGenericModel {
 	public void setAdditionalAddressInfo(String additionalAddressInfo) {
 		this.additionalAddressInfo = additionalAddressInfo;
 	}
-	
+
 	/**
 	 * @return the city
 	 */
@@ -96,7 +94,7 @@ public class Address extends BaseGenericModel {
 	public String getCity() {
 		return city;
 	}
-	
+
 	/**
 	 * @param city
 	 *            the city to set
@@ -104,16 +102,16 @@ public class Address extends BaseGenericModel {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	/**
 	 * @return the geoState
 	 */
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(name = "geo_state_id", foreignKey=@ForeignKey(name="FK_GEO_STATE_GEO_ADDRESS"))
+	@ManyToOne(fetch = FetchType.EAGER, optional = true)
+	@JoinColumn(name = "geo_state_id", foreignKey = @ForeignKey(name = "FK_GEO_STATE_GEO_ADDRESS"))
 	public GeoState getGeoState() {
 		return geoState;
 	}
-	
+
 	/**
 	 * @param geoState
 	 *            the geoState to set
@@ -121,7 +119,7 @@ public class Address extends BaseGenericModel {
 	public void setGeoState(GeoState geoState) {
 		this.geoState = geoState;
 	}
-	
+
 	/**
 	 * @return the zip
 	 */
@@ -129,7 +127,7 @@ public class Address extends BaseGenericModel {
 	public String getZip() {
 		return zip;
 	}
-	
+
 	/**
 	 * @param zip
 	 *            the zip to set
@@ -137,7 +135,7 @@ public class Address extends BaseGenericModel {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
+
 	/**
 	 * @return the landLine
 	 */
@@ -145,7 +143,7 @@ public class Address extends BaseGenericModel {
 	public String getLandLine() {
 		return landLine;
 	}
-	
+
 	/**
 	 * @param landLine
 	 *            the landLine to set
@@ -153,7 +151,7 @@ public class Address extends BaseGenericModel {
 	public void setLandLine(String landLine) {
 		this.landLine = landLine;
 	}
-	
+
 	/**
 	 * @return the contactName
 	 */
@@ -161,7 +159,7 @@ public class Address extends BaseGenericModel {
 	public String getContactName() {
 		return contactName;
 	}
-	
+
 	/**
 	 * @param contactName
 	 *            the contactName to set
@@ -169,29 +167,33 @@ public class Address extends BaseGenericModel {
 	public void setContactName(String contactName) {
 		this.contactName = contactName;
 	}
-	
+
 	/**
 	 * @return the addressType
 	 */
 	@Column(length = 20)
 	public String getAddressType() {
-		return addressType.name();
+		return addressType;
 	}
-	
+
 	/**
 	 * @param addressType
 	 *            the addressType to set
 	 */
 	public void setAddressType(String addressType) {
-		try {
-			this.addressType = AddressType.valueOf(addressType);
-		} catch (Exception e) {
-			this.addressType = AddressType.UNKNOWN;
-		}
+		this.addressType = addressType;
 	}
-	
-	public static enum AddressType {
-		UNKNOWN, LEGAL, MAILING
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Address [streetAddress=" + streetAddress + ", additionalAddressInfo=" + additionalAddressInfo
+				+ ", city=" + city + ", geoState=" + geoState + ", zip=" + zip + ", landLine=" + landLine
+				+ ", contactName=" + contactName + ", addressType=" + addressType + "]";
 	}
-	
+
 }

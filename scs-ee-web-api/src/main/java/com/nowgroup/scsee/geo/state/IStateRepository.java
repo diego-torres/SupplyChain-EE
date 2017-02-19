@@ -23,6 +23,8 @@
  */
 package com.nowgroup.scsee.geo.state;
 
+import java.util.List;
+
 import com.nowgroup.scsee.repository.ReadOnlyRepository;
 
 /**
@@ -30,5 +32,10 @@ import com.nowgroup.scsee.repository.ReadOnlyRepository;
  *
  */
 public interface IStateRepository extends ReadOnlyRepository<GeoState, Integer> {
-
+	/**
+	 * Get all states for a given country by country id.
+	 * @param countryId
+	 * @return
+	 */
+	public List<GeoState> getStatesByCountryId(int countryId);
 }

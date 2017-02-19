@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LocalDataSource } from 'ng2-smart-table';
@@ -11,12 +11,12 @@ import { CompanyService } from './shared/company.service';
     templateUrl: './companies.html',
     styleUrls: ['./companies.scss']
 })
-export class Companies {
+export class Companies implements OnInit {
     query: string = '';
 
     settings = {
         mode: 'external',
-        noDataMessage: 'No hay datos para mostrar aquí, o se ha perdido la conexión con la base de datos.',
+        noDataMessage: 'No hay datos para mostrar aquí.',
         add: {
             addButtonContent: '<i class="ion-ios-plus-outline"></i>',
             createButtonContent: '<i class="ion-checkmark"></i>',
@@ -29,7 +29,6 @@ export class Companies {
         },
         delete: {
             deleteButtonContent: '<i class="ion-trash-a"></i>',
-            confirmDelete: true
         },
         columns: {
             id: {
@@ -48,7 +47,7 @@ export class Companies {
                 title: 'email',
                 type: 'string'
             },
-            roles_ES: {
+            roles: {
                 title: 'Uso de la compañia',
                 type: 'string'
             }
@@ -57,16 +56,39 @@ export class Companies {
 
     source: LocalDataSource = new LocalDataSource();
 
-    constructor(protected service: CompanyService, private router: Router) {
-        this.service.getAllCompanies().then((data) => { this.source.load(data); });
+    constructor (
+      protected service: CompanyService,
+      private router: Router
+    ) {}
+
+    ngOnInit(){
+      this.service.getAllCompanies()
+      .subscribe(
+        companies => this.source.load(companies),
+        e => console.log(e)
+      );
     }
 
     onCreate(event): void {
         this.router.navigate(['/catalogs/companies/editor', 0]);
     }
 
-    onEdit(event): void{
+    onEdit(event): void {
         let id: number = event.data.id;
         this.router.navigate(['/catalogs/companies/editor', id]);
+    }
+
+    onDelete(event): void {
+      let id: number = event.data.id;
+      let r: boolean = confirm('¿Desea borrar la empresa ' + event.data.name
+      + '?\nConsidere que al borrar la empresa,' +
+      ' toda la información relacionada con esta será eliminada del sistema,' +
+      ' incluyendo listas de empaque y facturas.');
+      if (r === true)
+        this.service.deleteCompanyById(id)
+        .subscribe(
+          (data) => {},
+          (err) => console.log(err),
+          () => this.ngOnInit() );
     }
 }

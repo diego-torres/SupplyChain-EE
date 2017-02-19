@@ -23,19 +23,22 @@
  */
 package com.nowgroup.scsee.cat.company;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nowgroup.scsee.model.EditValidation;
 import com.nowgroup.scsee.service.BaseService;
 
 /**
  * 
  * @author https://github.com/diego-torres
- * 		
+ * 
  */
 @Service
-public class SpringCompanyService extends BaseService<Company, Integer>implements ICompanyService {
-	
+public class SpringCompanyService extends BaseService<Company, Integer> implements ICompanyService {
+
 	/**
 	 * @param repository
 	 */
@@ -43,5 +46,13 @@ public class SpringCompanyService extends BaseService<Company, Integer>implement
 	public SpringCompanyService(ICompanyRepository repository) {
 		super(repository);
 	}
-	
+
+	@Override
+	public List<EditValidation> validate(Company entity) {
+		entity.getAddresses().forEach(address -> {
+			address.setCompany(entity);
+		});
+		return super.validate(entity);
+	}
+
 }

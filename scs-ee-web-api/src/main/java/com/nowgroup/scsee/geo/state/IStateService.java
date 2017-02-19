@@ -23,6 +23,8 @@
  */
 package com.nowgroup.scsee.geo.state;
 
+import java.util.List;
+
 import com.nowgroup.scsee.service.SupplyChainReadOnlyService;
 
 /**
@@ -30,5 +32,10 @@ import com.nowgroup.scsee.service.SupplyChainReadOnlyService;
  *
  */
 public interface IStateService extends SupplyChainReadOnlyService<GeoState, Integer> {
-
+	/**
+	 * Get all states for a given country id
+	 * @param countryId
+	 * @return
+	 */
+	List<GeoState> getStatesByCountryId(int countryId);
 }

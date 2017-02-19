@@ -6,6 +6,7 @@ export class Address {
     additionalAddressInfo: string;
     city: string;
     geoState: State;
+    geoStateJson: string;
     zip: string;
     landLine: string;
     contactName: string;

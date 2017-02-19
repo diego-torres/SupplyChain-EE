@@ -3,10 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { Country } from '../country/country';
 import { CountryService } from '../country/country.service';
-
 import { State } from '../state/state';
 import { StateService } from '../state/state.service';
-
 import { Address } from './address';
 
 @Component({
@@ -19,9 +17,10 @@ export class AddressComponent {
 
   public countries: Country[] = [];
   public states: State[] = [];
-  public selectedCountry: Country;
 
-  constructor(private countryService: CountryService, private stateService: StateService) { }
+  constructor(
+    private countryService: CountryService,
+    private stateService: StateService) { }
 
   ngOnInit() {
     this.countryService.getAllCountries()
@@ -29,17 +28,26 @@ export class AddressComponent {
       countries => {
         this.countries = countries;
         if (this.addressForm && (<FormControl>this.addressForm.controls['countryId']).value > 0) {
-          this.stateService.getStatesByCountryId(
-              (<FormControl>this.addressForm.controls['countryId']).value)
-              .then(states => { this.states = states; });
+          let selectedCountryId: number = (<FormControl>this.addressForm.controls['countryId']).value;
+          this.stateService.getStatesByCountryId(selectedCountryId)
+          .subscribe(
+            states => {
+              this.states = states;
+            },
+            e => console.log(e));
         }
       },
-      err => {console.log(err);}
+      err => { console.log(err); }
     );
   }
 
-  onChangeCountry(selectedCountryId) {
-    this.states = this.countries.filter(country => country.id == selectedCountryId).pop().states;
-    (<FormControl>this.addressForm.controls['stateId']).setValue(0, { onlySelf: true });
+  onChangeCountry(selectedCountryId: number) {
+    this.stateService.getStatesByCountryId(selectedCountryId)
+    .subscribe(
+      states => {
+        this.states = states;
+        (<FormControl>this.addressForm.controls['stateId']).setValue(0, { onlySelf: true });
+      },
+      e => console.log(e));
   }
 }

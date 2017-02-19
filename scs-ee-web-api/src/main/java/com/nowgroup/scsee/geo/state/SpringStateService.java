@@ -23,6 +23,8 @@
  */
 package com.nowgroup.scsee.geo.state;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,12 +37,20 @@ import com.nowgroup.scsee.service.BaseReadOnlyService;
 @Service
 public class SpringStateService extends BaseReadOnlyService<GeoState, Integer> implements IStateService {
 
+	private IStateRepository localRepository;
+	
 	/**
 	 * @param readOnlyRepository
 	 */
 	@Autowired
 	public SpringStateService(IStateRepository repository) {
 		super(repository);
+		localRepository = repository;
+	}
+
+	@Override
+	public List<GeoState> getStatesByCountryId(int countryId) {
+		return localRepository.getStatesByCountryId(countryId);
 	}
 
 }

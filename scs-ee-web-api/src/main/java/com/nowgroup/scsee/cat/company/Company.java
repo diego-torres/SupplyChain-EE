@@ -23,18 +23,21 @@
  */
 package com.nowgroup.scsee.cat.company;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nowgroup.scsee.geo.address.Address;
 import com.nowgroup.scsee.model.BaseNamableModel;
 
@@ -43,23 +46,23 @@ import com.nowgroup.scsee.model.BaseNamableModel;
  * these properties.
  * 
  * @author https://github.com/diego-torres
- * 		
+ * 
  */
 @Entity
-@Table(name = "cat_companies")
+@Table(name = "cat_company")
 public class Company extends BaseNamableModel {
-	private static final long	serialVersionUID	= 1L;
-	private String				roles;
-	private String				taxId;
-	private String				email;
-	private Set<Address>		addresses			= new HashSet<>();
-	
+	private static final long serialVersionUID = 1L;
+	private String roles;
+	private String taxId;
+	private String email;
+	private List<CompanyAddress> addresses = new ArrayList<>();
+
 	/**
 	 * Empty constructor
 	 */
 	public Company() {
 	}
-	
+
 	/**
 	 * Constructor for company by name
 	 * 
@@ -69,32 +72,32 @@ public class Company extends BaseNamableModel {
 	public Company(String name) {
 		super(name);
 	}
-	
+
 	/**
 	 * @return the addresses
 	 */
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinTable(name = "loc_company_address", foreignKey = @ForeignKey(name = "FK_GEO_ADDRESS_CAT_COMPANY") )
-	public Set<Address> getAddresses() {
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "company", orphanRemoval = true, cascade = { CascadeType.MERGE,
+			CascadeType.PERSIST, CascadeType.REMOVE })
+	public List<CompanyAddress> getAddresses() {
 		return addresses;
 	}
-	
+
 	/**
 	 * @param addresses
 	 *            the addresses to set
 	 */
-	public void setAddresses(Set<Address> addresses) {
+	public void setAddresses(List<CompanyAddress> addresses) {
 		this.addresses = addresses;
 	}
-	
+
 	/**
 	 * @return the taxId
 	 */
-	@Column(length=30)
+	@Column(length = 30)
 	public String getTaxId() {
 		return taxId;
 	}
-	
+
 	/**
 	 * @param taxId
 	 *            the taxId to set
@@ -102,15 +105,15 @@ public class Company extends BaseNamableModel {
 	public void setTaxId(String taxId) {
 		this.taxId = taxId;
 	}
-	
+
 	/**
 	 * @return the email
 	 */
-	@Column(length=150)
+	@Column(length = 150)
 	public String getEmail() {
 		return email;
 	}
-	
+
 	/**
 	 * @param email
 	 *            the email to set
@@ -122,15 +125,46 @@ public class Company extends BaseNamableModel {
 	/**
 	 * @return the roles
 	 */
-	@Column(length=50)
+	@Column(length = 80)
 	public String getRoles() {
 		return roles;
 	}
 
 	/**
-	 * @param roles the roles to set
+	 * @param roles
+	 *            the roles to set
 	 */
 	public void setRoles(String roles) {
 		this.roles = roles;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Company [roles=" + roles + ", taxId=" + taxId + ", email=" + email + ", addresses=" + addresses + "]";
+	}
+
+	@Entity
+	@Table(name = "cat_company_address")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	public static class CompanyAddress extends Address {
+		private static final long serialVersionUID = 1L;
+
+		private Company company;
+
+		@ManyToOne
+		@JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_COMPANY_ADDRESS"))
+		@JsonIgnore
+		public Company getCompany() {
+			return company;
+		}
+
+		public void setCompany(Company company) {
+			this.company = company;
+		}
 	}
 }

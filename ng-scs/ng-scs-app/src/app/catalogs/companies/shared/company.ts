@@ -6,10 +6,10 @@ export class Company {
     public taxId: string;
     public email: string;
     public rolesArray: string[] = [];
+    public roles: string;
     public addresses?: Address[];
 
     constructor (values: Object = {}) {
-        console.log('Company constructor value assignment from', values);
         Object.assign(this, values);
     }
 
@@ -80,7 +80,7 @@ export class Company {
     }
 
     public get billable(): boolean {
-        return this.rolesArray.indexOf('billable') !== -1;
+      return this.rolesArray.indexOf('billable') !== -1;
     }
 
     public set billable(value: boolean) {
@@ -88,33 +88,5 @@ export class Company {
             this.rolesArray.push('billable');
         else if (this.billable)
             this.rolesArray = this.rolesArray.filter(rol => rol !== 'billable');
-    }
-
-    public get roles_ES(): string {
-        let roles: string = '';
-        if (this.buyer)
-            roles = 'comprador, ';
-        if (this.seller)
-            roles = roles + 'vendedor, ';
-        if (this.sender)
-            roles = roles + 'remitente, ';
-        if (this.receiver)
-            roles = roles + 'destinatario, ';
-        if (this.freighter)
-            roles = roles + 'transportista, ';
-        if (this.trader)
-            roles = roles + 'agente aduanal, ';
-        if (this.billable)
-            roles = roles + 'facturable, ';
-
-        // remove last comma
-        if (roles.length > 2)
-            roles = roles.substring(0, roles.length - 2);
-
-        return roles;
-    }
-
-    public get roles(): string{
-        return this.rolesArray.join(', ');
     }
 }

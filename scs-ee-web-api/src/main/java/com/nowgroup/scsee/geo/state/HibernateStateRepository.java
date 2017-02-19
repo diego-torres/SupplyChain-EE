@@ -23,7 +23,12 @@
  */
 package com.nowgroup.scsee.geo.state;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -44,6 +49,17 @@ public class HibernateStateRepository extends HibernateReadOnlyRepository<GeoSta
 	@Autowired
 	public HibernateStateRepository(SessionFactory sessionFactory) {
 		super(GeoState.class, sessionFactory);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GeoState> getStatesByCountryId(int countryId) {
+		DetachedCriteria dc = DetachedCriteria.forClass(GeoState.class);
+		DetachedCriteria countryCriteria = dc.createCriteria("country");
+		countryCriteria.add(Restrictions.eq("id", countryId));
+		countryCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		return (List<GeoState>) getHibernateTemplate().findByCriteria(dc);
 	}
 
 }
