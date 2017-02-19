@@ -15,9 +15,7 @@ export class CompanyService {
 
   constructor(private http: Http){}
 
-  // Simulate POST /companies
   addCompany(company: Company): Observable<Company> {
-    let companyString = JSON.stringify(company);
     if (company.rolesArray)
       company.roles = company.rolesArray.join(', ');
 
@@ -38,14 +36,12 @@ export class CompanyService {
     .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
   }
 
-  // Simulate PUT /companies/:id
   updateCompanyById(id: number, values: Object = {}): Observable<Company> {
     let company: Company = new Company(values);
 
     if (company.rolesArray)
       company.roles = company.rolesArray.join(', ');
 
-    let companyString = JSON.stringify(company);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
 
@@ -54,7 +50,6 @@ export class CompanyService {
     .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
   }
 
-  // Simulate GET /companies
   getAllCompanies(): Observable<Company[]> {
     return this.http.get(this.companiesUrl)
       .map(
@@ -66,7 +61,6 @@ export class CompanyService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  // Simulate GET /companies/:id
   getCompanyById(id: number): Observable<Company> {
     return this.http.get(this.companiesUrl + '/' + id)
       .map((result: Response) => {

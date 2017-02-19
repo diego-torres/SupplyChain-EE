@@ -10,12 +10,13 @@ import { RatingModule } from 'ng2-bootstrap';
 import { Catalogs } from './catalogs.component';
 import { Companies } from './companies';
 import { CompanyEditorForm } from './companies/editor/editor.component';
-import { Parts } from './parts';
+import { PartsComponent } from './parts';
 import { AddressComponent } from '../geo/address/address.component';
 
 import { CompanyService } from './companies/shared/company.service';
 import { CountryService } from '../geo/country/country.service';
 import { StateService } from '../geo/state/state.service';
+import { PartService } from './parts/shared/part.service';
 
 @NgModule({
   imports: [
@@ -32,12 +33,13 @@ import { StateService } from '../geo/state/state.service';
     Companies,
     CompanyEditorForm,
     AddressComponent,
-    Parts
+    PartsComponent
   ],
   providers: [
     CompanyService,
     CountryService,
-    StateService
+    StateService,
+    PartService
   ]
 })
 export class CatalogsModule {
