@@ -16,4 +16,11 @@ export class Part {
   constructor (values: Object = {}) {
     Object.assign(this, values);
   }
+
+  public get company_name(): string {
+    if (!this.company)
+      return '';
+    else
+      return this.company.name;
+  }
 }

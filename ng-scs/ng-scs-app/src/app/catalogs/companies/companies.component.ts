@@ -11,47 +11,46 @@ import { CompanyService } from './shared/company.service';
     templateUrl: './companies.html',
     styleUrls: ['./companies.scss']
 })
+// TODO: Implement error from server side print out or dialog.
 export class Companies implements OnInit {
-    query: string = '';
-
     settings = {
-        mode: 'external',
-        noDataMessage: 'No hay datos para mostrar aquí.',
-        add: {
-            addButtonContent: '<i class="ion-ios-plus-outline"></i>',
-            createButtonContent: '<i class="ion-checkmark"></i>',
-            cancelButtonContent: '<i class="ion-close"></i>',
-        },
-        edit: {
-            editButtonContent: '<i class="ion-edit"></i>',
-            saveButtonContent: '<i class="ion-checkmark"></i>',
-            cancelButtonContent: '<i class="ion-close"></i>',
-        },
-        delete: {
-            deleteButtonContent: '<i class="ion-trash-a"></i>',
-        },
-        columns: {
-            id: {
-                title: 'ID',
-                type: 'number'
-            },
-            name: {
-                title: 'Razón Social',
-                type: 'string'
-            },
-            taxId: {
-                title: 'RFC',
-                type: 'string'
-            },
-            email: {
-                title: 'email',
-                type: 'string'
-            },
-            roles: {
-                title: 'Uso de la compañia',
-                type: 'string'
-            }
-        }
+      mode: 'external',
+      noDataMessage: 'No hay datos para mostrar aquí.',
+      add: {
+          addButtonContent: '<i class="ion-ios-plus-outline"></i>',
+          createButtonContent: '<i class="ion-checkmark"></i>',
+          cancelButtonContent: '<i class="ion-close"></i>',
+      },
+      edit: {
+          editButtonContent: '<i class="ion-edit"></i>',
+          saveButtonContent: '<i class="ion-checkmark"></i>',
+          cancelButtonContent: '<i class="ion-close"></i>',
+      },
+      delete: {
+          deleteButtonContent: '<i class="ion-trash-a"></i>',
+      },
+      columns: {
+          id: {
+              title: 'ID',
+              type: 'number'
+          },
+          name: {
+              title: 'Razón Social',
+              type: 'string'
+          },
+          taxId: {
+              title: 'RFC',
+              type: 'string'
+          },
+          email: {
+              title: 'email',
+              type: 'string'
+          },
+          roles: {
+              title: 'Uso de la compañia',
+              type: 'string'
+          }
+      }
     };
 
     source: LocalDataSource = new LocalDataSource();

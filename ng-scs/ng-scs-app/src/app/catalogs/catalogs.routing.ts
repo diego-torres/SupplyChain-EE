@@ -5,7 +5,7 @@ import { Catalogs } from './catalogs.component';
 import { Companies } from './companies';
 import { CompanyEditorForm } from './companies/editor/editor.component';
 
-import { Parts } from './parts';
+import { PartsComponent } from './parts';
 
 const routes: Routes = [{
     path: '',
@@ -13,7 +13,7 @@ const routes: Routes = [{
     children: [
         {path: 'companies', component: Companies},
         {path: 'companies/editor/:id', component: CompanyEditorForm},
-        {path: 'parts', component: Parts},
+        {path: 'parts', component: PartsComponent},
     ]
 }];
 

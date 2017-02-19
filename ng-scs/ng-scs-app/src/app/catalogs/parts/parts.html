@@ -1,1 +1,12 @@
-<h1>PARTS</h1>
+<div class="widgets">
+    <div class="row">
+        <ba-card title="Números de parte" baCardClass="with-scroll">
+            <ng2-smart-table
+            [settings]="settings"
+            [source]="source"
+            (create)="onCreate($event)"
+            (edit)="onEdit($event)"
+            (delete)="onDelete($event)"></ng2-smart-table>
+        </ba-card>
+    </div>
+</div>

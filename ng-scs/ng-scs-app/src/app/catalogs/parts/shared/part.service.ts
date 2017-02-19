@@ -21,4 +21,13 @@ export class PartService {
     .map((r: Response) => r.json())
     .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
   }
+
+  getAllParts(): Observable<Part[]> {
+    return this.http.get(this.partsUrl)
+    .map((r: Response) => {
+      let parts: Part[] = r.json().data;
+      return parts;
+    })
+    .catch((e: any) => Observable.throw(e.json().error || 'server error'));
+  }
 }
