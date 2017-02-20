@@ -13,7 +13,9 @@ export class Part {
   public handlingInstructions: string;
   public otherDimensions: string;
 
-  constructor (values: Object = {}) {
+  public companyId: number;
+
+  constructor(values: Object = {}) {
     Object.assign(this, values);
   }
 

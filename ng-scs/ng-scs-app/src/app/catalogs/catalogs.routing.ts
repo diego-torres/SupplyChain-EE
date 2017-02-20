@@ -6,6 +6,7 @@ import { Companies } from './companies';
 import { CompanyEditorForm } from './companies/editor/editor.component';
 
 import { PartsComponent } from './parts';
+import { PartEditorForm } from './parts/editor/editor.component';
 
 const routes: Routes = [{
     path: '',
@@ -14,6 +15,7 @@ const routes: Routes = [{
         {path: 'companies', component: Companies},
         {path: 'companies/editor/:id', component: CompanyEditorForm},
         {path: 'parts', component: PartsComponent},
+        {path: 'parts/editor/:id', component: PartEditorForm},
     ]
 }];
 

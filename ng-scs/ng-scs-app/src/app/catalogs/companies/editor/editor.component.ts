@@ -37,7 +37,7 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
     if (this.id !== 0)
       // TODO: Block with "loading"
       this.companyService.getCompanyById(this.id)
-      .subscribe(
+        .subscribe(
         c => {
           console.log(c);
           this.initCompany(c);
@@ -45,27 +45,27 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
         e => {
           console.log(e);
         }
-      );
+        );
   }
 
   initCompany(company?: Company) {
     if (company) {
       // with values
       this.fgClient = new FormGroup({
-          name: new FormControl(company.name, [
-              <any>Validators.required,
-              <any>Validators.minLength(5),
-              <any>Validators.maxLength(150)]),
-          taxId: new FormControl(company.taxId),
-          email: new FormControl(company.email),
-          buyer: new FormControl(company.rolesArray && company.rolesArray.indexOf('buyer') !== -1),
-          seller: new FormControl(company.rolesArray && company.rolesArray.indexOf('seller') !== -1),
-          sender: new FormControl(company.rolesArray && company.rolesArray.indexOf('sender') !== -1),
-          receiver: new FormControl(company.rolesArray && company.rolesArray.indexOf('receiver') !== -1),
-          freighter: new FormControl(company.rolesArray && company.rolesArray.indexOf('freighter') !== -1),
-          trader: new FormControl(company.rolesArray && company.rolesArray.indexOf('trader') !== -1),
-          billable: new FormControl(company.rolesArray && company.rolesArray.indexOf('billable') !== -1),
-          addresses: this._fb.array([])
+        name: new FormControl(company.name, [
+          <any>Validators.required,
+          <any>Validators.minLength(5),
+          <any>Validators.maxLength(150)]),
+        taxId: new FormControl(company.taxId),
+        email: new FormControl(company.email),
+        buyer: new FormControl(company.rolesArray && company.rolesArray.indexOf('buyer') !== -1),
+        seller: new FormControl(company.rolesArray && company.rolesArray.indexOf('seller') !== -1),
+        sender: new FormControl(company.rolesArray && company.rolesArray.indexOf('sender') !== -1),
+        receiver: new FormControl(company.rolesArray && company.rolesArray.indexOf('receiver') !== -1),
+        freighter: new FormControl(company.rolesArray && company.rolesArray.indexOf('freighter') !== -1),
+        trader: new FormControl(company.rolesArray && company.rolesArray.indexOf('trader') !== -1),
+        billable: new FormControl(company.rolesArray && company.rolesArray.indexOf('billable') !== -1),
+        addresses: this._fb.array([])
       });
       if (company.addresses)
         company.addresses.forEach(address => { this.addAddress(address); });
@@ -73,9 +73,9 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
       // empty
       this.fgClient = new FormGroup({
         name: new FormControl('', [
-            <any>Validators.required,
-            <any>Validators.minLength(5),
-            <any>Validators.maxLength(150)]),
+          <any>Validators.required,
+          <any>Validators.minLength(5),
+          <any>Validators.maxLength(150)]),
         taxId: new FormControl(''),
         email: new FormControl(''),
         buyer: new FormControl(false),
@@ -104,7 +104,7 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
         stateId: [address.geoState ? address.geoState.id : 0]
       });
     } else
-     return this._fb.group({
+      return this._fb.group({
         addressType: [''],
         streetAddress: [''],
         additionalAddressInfo: [''],
@@ -118,13 +118,13 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
   }
 
   addAddress(address?: Address) {
-    const control = <FormArray> this.fgClient.controls['addresses'];
+    const control = <FormArray>this.fgClient.controls['addresses'];
     const addrCtrl = this.initAddress(address);
 
     control.push(addrCtrl);
   }
 
-  removeAddress(i: number){
+  removeAddress(i: number) {
     const control = <FormArray>this.fgClient.controls['addresses'];
     control.removeAt(i);
   }
@@ -133,9 +133,9 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  // TODO: Implement server side validation.
   save(model: any): void {
     let company: Company = new Company(model);
-    console.log('saving company', company);
     company.id = this.id;
     let observables: Observable<State>[] = [];
     company.addresses.forEach(
@@ -147,7 +147,7 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
     let source = Observable.forkJoin(observables);
     source.subscribe(
       aStates => {
-        company.addresses.forEach( (a, i) => {
+        company.addresses.forEach((a, i) => {
           console.log('resolving state for address', a);
           let aState: State = aStates.filter(s => s.id === Number(a.stateId)).pop();
           if (aState)
@@ -158,22 +158,22 @@ export class CompanyEditorForm implements OnInit, OnDestroy {
       () => {
         console.log('posting company', company);
         if (company.id === 0)
-            this.companyService.addCompany(company)
+          this.companyService.addCompany(company)
             .subscribe(
-              c => {
-                this.router.navigate(['/catalogs/companies']);
-              },
-              e => { console.log(e); }
+            c => {
+              this.router.navigate(['/catalogs/companies']);
+            },
+            e => { console.log(e); }
             );
         else
-            this.companyService.updateCompanyById(company.id, company)
+          this.companyService.updateCompanyById(company.id, company)
             .subscribe(
-              c => {
-                this.router.navigate(['/catalogs/companies']);
-              },
-              e => { console.log(e); }
+            c => {
+              this.router.navigate(['/catalogs/companies']);
+            },
+            e => { console.log(e); }
             );
-    });
+      });
   }
 
   cancel() {

@@ -13,27 +13,24 @@ import 'rxjs/add/operator/catch';
 export class CompanyService {
   private companiesUrl = 'http://localhost:8080/rest/company';
 
-  constructor(private http: Http){}
+  constructor(private http: Http) { }
 
   addCompany(company: Company): Observable<Company> {
     if (company.rolesArray)
       company.roles = company.rolesArray.join(', ');
 
-    let headers = new Headers({'Content-Type': 'application/json'});
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.companiesUrl, company, options)
-    .map((r: Response) => r.json())
-    .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
+      .map((r: Response) => r.json())
+      .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
   }
 
   deleteCompanyById(id: number): Observable<Company> {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
-
     return this.http.delete(this.companiesUrl + '/' + id)
-    .map((r: Response) => r.json())
-    .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
+      .map((r: Response) => r.json())
+      .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
   }
 
   updateCompanyById(id: number, values: Object = {}): Observable<Company> {
@@ -42,22 +39,22 @@ export class CompanyService {
     if (company.rolesArray)
       company.roles = company.rolesArray.join(', ');
 
-    let headers = new Headers({'Content-Type': 'application/json'});
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(this.companiesUrl, company, options)
-    .map((r: Response) => r.json())
-    .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
+      .map((r: Response) => r.json())
+      .catch((e: any) => Observable.throw(e.json().error || 'Server Error'));
   }
 
   getAllCompanies(): Observable<Company[]> {
     return this.http.get(this.companiesUrl)
       .map(
-        (result: Response) => {
-          let companies: Company[] = result.json().data;
-          companies.forEach( c => { c.rolesArray = c.roles.split(', '); });
-          return companies;
-        })
+      (result: Response) => {
+        let companies: Company[] = result.json().data;
+        companies.forEach(c => { c.rolesArray = c.roles.split(', '); });
+        return companies;
+      })
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 

@@ -1,0 +1,72 @@
+<form novalidate (ngSubmit)="save(formGroupEditor.value)" [formGroup]="formGroupEditor">
+    <div class="form-group">
+        <label for="partNumber">Número de Parte</label>
+        <input formControlName="partNumber" type="text" class="form-control" name="partNumber" placeholder="Número de parte">
+        <small [hidden]="formGroupEditor.controls.partNumber.valid || (formGroupEditor.controls.partNumber.pristine && !submitted)">
+            El número de parte es requerido (5 caracteres como mínimo).
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="description">Descripción</label>
+        <input formControlName="description" type="text" class="form-control" name="description" id="description" placeholder="Descripción">
+        <small [hidden]="formGroupEditor.controls.description.valid || (formGroupEditor.controls.description.pristine && !submitted)">
+            Debe incluir una descripción del número de parte.
+        </small>
+    </div>
+    <div class="form-group">
+      <label for="company">Empresa</label>
+      <select formControlName="companyId" class="form-control" name="companyId">
+          <option value=0>Seleccione empresa</option>
+          <option *ngFor="let companyOption of companies" value="{{companyOption.id}}">{{companyOption.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+        <label for="handlingInstructions">Instrucciones de manejo</label>
+        <input formControlName="handlingInstructions" type="text" class="form-control" name="handlingInstructions" placeholder="Instrucciones de manejo">
+    </div>
+    <div class="form-group">
+        <div class="input-demo checkbox-demo row">
+            <div class="ng-untouched ng-pristine ng-valid">
+                <div class="">
+                    <div class="ng-untouched ng-pristine ng-valid">
+                        <div class="col-md-3">
+                            <label class="checkbox-inline custom-checkbox nowrap">
+                                <input type="checkbox" formControlName="blocked" name="blocked" />
+                                <span>Bloqueado en aduanas</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-3">
+        <label for="weight">Peso (Kgs.)</label>
+        <input formControlName="weight" type="number" class="form-control" name="weight" placeholder="Peso en Kg.">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="height">Altura (Cm.)</label>
+        <input formControlName="height" type="number" class="form-control" name="height" placeholder="Altura en Cm.">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="width">Ancho (Cm.)</label>
+        <input formControlName="width" type="number" class="form-control" name="width" placeholder="Ancho en Cm.">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="length">Largo (Cm.)</label>
+        <input formControlName="length" type="number" class="form-control" name="length" placeholder="Largo en Cm.">
+    </div>
+    <div class="form-group">
+        <label for="otherDimensions">Otras dimensiones</label>
+        <input formControlName="otherDimensions" type="text" class="form-control" name="otherDimensions" placeholder="Otras dimensiones">
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success btn-with-icon" [disabled]="!formGroupEditor.valid">
+            <i class="ion-android-checkmark-circle"></i> Guardar
+        </button>
+        <button type="reset" class="btn btn-danger btn-with-icon" (click)="cancel()">
+            <i class="ion-android-checkmark-circle"></i> Cancelar
+        </button>
+    </div>
+</form>

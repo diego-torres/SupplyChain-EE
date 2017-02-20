@@ -11,6 +11,7 @@ import { Catalogs } from './catalogs.component';
 import { Companies } from './companies';
 import { CompanyEditorForm } from './companies/editor/editor.component';
 import { PartsComponent } from './parts';
+import { PartEditorForm } from './parts/editor/editor.component';
 import { AddressComponent } from '../geo/address/address.component';
 
 import { CompanyService } from './companies/shared/company.service';
@@ -33,7 +34,8 @@ import { PartService } from './parts/shared/part.service';
     Companies,
     CompanyEditorForm,
     AddressComponent,
-    PartsComponent
+    PartsComponent,
+    PartEditorForm
   ],
   providers: [
     CompanyService,
